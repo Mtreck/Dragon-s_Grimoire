@@ -132,7 +132,7 @@ function renderNotes() {
         li.innerHTML = `
             <span>${note.title}</span>
             <div>
-                <button class="btn-primary btn-sm mb-1" onclick="openNoteModal(${index})">Editar</button>
+                <button class="btn-sm mb-1" onclick="openNoteModal(${index})">Editar</button>
                 <button class="btn-danger btn-sm mb-1" onclick="deleteNote(${index})">Deletar</button>
             </div>
         `;
