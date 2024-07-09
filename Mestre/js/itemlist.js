@@ -1,6 +1,5 @@
 import { db, collection, addDoc, getDocs, deleteDoc, doc } from '/bd.js';
 
-
 // Função para buscar itens do Firestore
 async function fetchItems() {
     const querySnapshot = await getDocs(collection(db, 'items'));

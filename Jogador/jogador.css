@@ -1,11 +1,11 @@
 body {
     background-image: url(/img/jogadores.jpg);
     font-family: Arial, sans-serif;
+    color: #ffffff;
 }
 
 header {
     position: relative;
-    margin-bottom: 2rem;
 }
 
 .logo-container {
@@ -42,9 +42,17 @@ header {
 }
 
 h1,
-h2,
 h3 {
-    color: #ffffff;
+    width: fit-content;
+}
+
+.container {
+    max-width: 100%;
+    padding: 0;
+    margin: 0%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .grid-container {
@@ -152,15 +160,14 @@ textarea::placeholder {
 
 .modal-content {
     background-color: #1a1a1a;
-    padding: 20px;
+    padding: 10px;
     border-radius: 8px;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
     width: 100vw;
     max-width: 90vw;
-    max-height: 80vh;
-    /* Define uma altura máxima */
+    max-height: 90vh;
+    color: #ffffff;
     overflow-y: auto;
-    /* Permite rolagem vertical */
 }
 
 .text-box {
@@ -214,4 +221,30 @@ ul {
 
 .mb-4 {
     margin-bottom: 1rem;
+}
+
+
+#item-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+   
+}
+
+.item-card {
+    flex: 1 1 calc(22% - 10px);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #1a1a1a;
+}
+
+.item-card h3 {
+    margin-top: 0;
+}
+
+.item-card p {
+    margin: 10px 0;
 }
