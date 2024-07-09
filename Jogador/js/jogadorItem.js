@@ -29,7 +29,7 @@ function displayItems(items) {
             container.appendChild(itemCard);
         });
     }
-}
+}   
 
 // Função para filtrar itens com base na pesquisa
 function filterItems(items, searchText) {

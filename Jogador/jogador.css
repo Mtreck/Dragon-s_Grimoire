@@ -223,28 +223,43 @@ ul {
     margin-bottom: 1rem;
 }
 
-
 #item-cards-container {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     margin-top: 20px;
-   
 }
 
+/* Para telas menores (celulares) */
 .item-card {
-    flex: 1 1 calc(22% - 10px);
+    flex: 1 1 calc(33% - 0px);
     border: 1px solid #ccc;
     border-radius: 5px;
-    padding: 10px;
+    padding: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     background-color: #1a1a1a;
 }
 
+/* Para telas médias (tablets) */
+@media (min-width: 700px) {
+    .item-card {
+        flex: 1 1 calc(30% - 10px);
+    }
+}
+
+/* Para telas grandes (desktops) */
+@media (min-width: 900px) {
+    .item-card {
+        flex: 1 1 calc(20% - 10px);
+    }
+}
+
 .item-card h3 {
     margin-top: 0;
+    font-size: 20px;
 }
 
 .item-card p {
     margin: 10px 0;
+    font-size: 14px;
 }
