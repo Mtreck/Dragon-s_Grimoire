@@ -20,6 +20,8 @@
         </div>
     </header>
     <main class="grid-container">
+
+        <!-- SECTION DA FICHA -->
         <section class="p-4 rounded shadow-md mb-6 text-box" id="character-sheet">
             <h2 class="text-xl font-semibold mb-4">Detalhes do Personagem
                 <button class="btn-min-max" onclick="toggleSection('character-sheet')">-</button>
@@ -30,6 +32,8 @@
             </div>
             <div id="character-details"></div>
         </section>
+
+        <!-- SECTION DE ANOTAÇÕES -->
         <section class="p-4 rounded shadow-md mb-6 text-box" id="notes-section">
             <h2 class="text-xl font-semibold mb-4">Notas Mentais
                 <button class="btn-min-max" onclick="toggleSection('notes-section')">-</button>
@@ -47,52 +51,40 @@
                 <!-- As anotações saem aqui -->
             </ul>
         </section>
+
+        <!-- SECTION DE ITENS -->
         <section class="p-4 rounded shadow-md mb-6 text-box" id="items-section">
             <h2 class="text-xl font-semibold mb-4">Itens
                 <button class="btn-min-max" onclick="toggleSection('items-section')">-</button>
             </h2>
-            <form id="items-form">
-                <div class="mb-4 text-center">
-                    <button class="px-4 py-2 rounded" onclick="openModal('item-modal')">Buscar Item</button>
-                </div>
-            </form>
+            <div class="mb-4 text-center">
+                <button class="px-4 py-2 rounded" type="button" onclick="openModal('item-modal')">Buscar Item</button>
+            </div>
             <ul id="items-list" class="mt-4"></ul>
         </section>
+
+        <!-- SECTION DAS MAGIAS -->
         <section class="p-4 rounded shadow-md mb-6 text-box" id="spells-section">
             <h2 class="text-xl font-semibold mb-4">Magias
                 <button class="btn-min-max" onclick="toggleSection('spells-section')">-</button>
             </h2>
-            <form id="spells-form">
-                <!-- <div class="mb-4">
-                    <label class="block mb-1" for="spell">Nome</label>
-                    <input class="w-full p-2 border rounded" type="text" id="spell" required>
-                </div>
-                <div class="mb-4">
-                    <label class="block mb-1" for="spell-level">Level</label>
-                    <input class="w-full p-2 border rounded" type="number" id="spell-level" required>
-                </div>
-                <div class="mb-4">
-                    <label class="block mb-1" for="spell-type">Tipo</label>
-                    <select class="w-full p-2 border rounded" id="spell-type" required>
-                        <option value="ataque">Ataque</option>
-                        <option value="defensiva">Defensiva</option>
-                        <option value="utilidade">Utilidade</option>
-                    </select>
-                </div>
-                <div class="mb-2 text-center">
-                    <button class="px-4 py-2 rounded" type="submit">Buscar Magia</button>
-                </div> -->
-            </form>         
+            <div class="mb-4 text-center">
+                <button class="px-4 py-2 rounded" type="button" onclick="openModal('spell-modal')">Buscar Magia</button>
+            </div>
             <ul id="spells-list" class="mt-4"></ul>
         </section>
+        
+
+        <!-- SECTION DE IMPORT -->
+        <!-- MANUTENÇÃO -->
         <section class="p-4 rounded shadow-md mb-6" id="exp-imp-section">
-            <h2 class="text-xl font-semibold mb-4">Exportar/Importar Informações do Personagem
+            <!-- <h2 class="text-xl font-semibold mb-4">Exportar/Importar Informações do Personagem
                 <button class="btn-min-max" onclick="toggleSection('exp-imp-section')">-</button>
             </h2>
             <div>
                 <button class="px-4 py-2 rounded" onclick="exportCharacter()">Exportar Dados do Personagem</button>
                 <input type="file" id="import-file" class="mt-4" onchange="importCharacter(event)">
-            </div>
+            </div> -->
         </section>
     </main>
 
@@ -169,13 +161,11 @@
                 </div>
                 <div class="mb-4">
                     <label class="block mb-1" for="abilities-modal">Habilidades</label>
-                    <textarea class="w-full p-2 border rounded text-box" id="abilities-modal" rows="3"
-                        required></textarea>
+                    <textarea class="w-full p-2 border rounded text-box" id="abilities-modal" rows="3" required></textarea>
                 </div>
                 <div class="mb-4">
                     <label class="block mb-1" for="background-modal">Background</label>
-                    <textarea class="w-full p-2 border rounded text-box" id="background-modal" rows="3"
-                        required></textarea>
+                    <textarea class="w-full p-2 border rounded text-box" id="background-modal" rows="3" required></textarea>
                 </div>
                 <div class="mb-4">
                     <label class="block mb-1" for="traits-modal">Características</label>
@@ -189,12 +179,13 @@
         </div>
     </div>
 
-    <!-- Modal para Edição de Item -->
+    <!-- MODAL PARA VISUALIZAR E ADICIONAR ITENS-->
     <div id="item-modal" class="fixed hidden modal" aria-labelledby="item-modal" role="dialog" aria-modal="true">
         <div class="modal-content">
             <div class="container mb-3">
                 <h1>Busca de Itens</h1>
-                <button id="cancel-item" onclick="closeModal('item-modal')" class="btn-danger px-3 py-1 rounded ">Sair</button>
+                <button id="cancel-item" onclick="closeModal('item-modal')"
+                    class="btn-danger px-3 py-1 rounded">Sair</button>
             </div>
             <div id="item-list-container" class="form-container2">
                 <h2>Listagem</h2>
@@ -202,34 +193,28 @@
                 <div id="item-cards-container"></div>
             </div>
             <div class="px-4 py-3 text-right">
-                <button id="cancel-item" onclick="closeModal('item-modal')" class="btn-danger px-3 py-1 rounded">Sair</button>
+                <button id="cancel-item" onclick="closeModal('item-modal')"
+                    class="btn-danger px-3 py-1 rounded">Sair</button>
             </div>
         </div>
     </div>
 
-    <!-- Modal para Edição de Magia -->
+    <!-- MODAL PARA VISUALIZAÇÃO E ADICIONAR MAGIA -->
     <div id="spell-modal" class="fixed hidden modal" aria-labelledby="spell-modal" role="dialog" aria-modal="true">
         <div class="modal-content">
-            <h3 class="text-lg leading-6 font-medium" id="spell-modal-title">Editar Magia</h3>
-            <div class="mt-2">
-                <label class="block mb-1" for="edit-spell">Magia</label>
-                <input class="w-full p-2 border rounded" type="text" id="edit-spell" required>
+            <div class="container mb-3">
+                <h1>Busca de Magias</h1>
+                <button id="cancel-spell" onclick="closeModal('spell-modal')"
+                    class="btn-danger px-3 py-1 rounded">Sair</button>
             </div>
-            <div class="mt-2">
-                <label class="block mb-1" for="edit-spell-level">Level</label>
-                <input class="w-full p-2 border rounded" type="number" id="edit-spell-level" required>
-            </div>
-            <div class="mt-2">
-                <label class="block mb-1" for="edit-spell-type">Tipo</label>
-                <select class="w-full p-2 border rounded" id="edit-spell-type" required>
-                    <option value="ataque">Ataque</option>
-                    <option value="defensiva">Defensiva</option>
-                    <option value="utilidade">Utilidade</option>
-                </select>
+            <div id="spell-list-container" class="form-container2">
+                <h2>Listagem</h2>
+                <input type="text" id="search-spell" placeholder="Pesquisar magias...">
+                <div id="spell-cards-container"></div>
             </div>
             <div class="px-4 py-3 text-right">
-                <button id="save-spell" class="px-2 py-1 rounded">Salvar</button>
-                <button id="cancel-spell" class="px-2 py-1 rounded btn-danger">Cancelar</button>
+                <button id="cancel-spell" onclick="closeModal('spell-modal')"
+                    class="btn-danger px-3 py-1 rounded">Sair</button>
             </div>
         </div>
     </div>
@@ -263,12 +248,16 @@
             </div>
         </div>
     </div>
+
     <script src="js/jogador.js"></script>
     <script type="module" src="../bd.js"></script>
     <script type="module" src="/Jogador/js/jogadorItem.js"></script>
-    
+    <script type="module" src="/Jogador/js/jogadorMagia.js"></script>
+
     <!-- Link do script do Bootstrap5 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

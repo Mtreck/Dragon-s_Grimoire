@@ -263,3 +263,23 @@ ul {
     margin: 10px 0;
     font-size: 14px;
 }
+
+.spell-card {
+    flex: 1 1 calc(33% - 0px);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #1a1a1a;
+    margin-bottom: 10px;
+}
+
+.spell-card h3 {
+    margin-top: 0;
+    font-size: 20px;
+}
+
+.spell-card p {
+    margin: 10px 0;
+    font-size: 14px;
+}

@@ -32,132 +32,70 @@ document.getElementById('cancel-character').onclick = function () {
     closeModal('character-modal');
 };
 
-document.getElementById('items-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const item = document.getElementById('item').value;
-    const quantity = document.getElementById('quantity').value;
-    const category = document.getElementById('category').value;
-    let items = JSON.parse(localStorage.getItem('items')) || [];
-    items.push({ item, quantity, category });
-    localStorage.setItem('items', JSON.stringify(items));
-    renderItems();
-});
+// document.getElementById('items-form').addEventListener('submit', function (e) {
+//     e.preventDefault();
+//     const item = document.getElementById('item').value;
+//     const quantity = document.getElementById('quantity').value;
+//     const category = document.getElementById('category').value;
+//     let items = JSON.parse(localStorage.getItem('items')) || [];
+//     items.push({ item, quantity, category });
+//     localStorage.setItem('items', JSON.stringify(items));
+//     renderItems();
+// });
 
-document.getElementById('spells-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const spell = document.getElementById('spell').value;
-    const level = document.getElementById('spell-level').value;
-    const type = document.getElementById('spell-type').value;
-    let spells = JSON.parse(localStorage.getItem('spells')) || [];
-    spells.push({ spell, level, type });
-    localStorage.setItem('spells', JSON.stringify(spells));
-    renderSpells();
-});
+// function renderItems() {
+//     const itemsList = document.getElementById('items-list');
+//     itemsList.innerHTML = '';
+//     const items = JSON.parse(localStorage.getItem('items')) || [];
+//     if (items.length > 0) {
+//         const itemTitle = document.createElement('label');
+//         itemTitle.innerHTML = 'Itens';
+//         itemTitle.classList.add('block', 'mb-2', 'text-lg', 'font-semibold');
+//         itemsList.appendChild(itemTitle);
+//         itemsList.classList.add('bordered-list');
+//     } else {
+//         itemsList.classList.remove('bordered-list');
+//     }
+//     items.forEach((item, index) => {
+//         const li = document.createElement('li');
+//         li.innerHTML = `${item.item} (x${item.quantity}, ${item.category})
+//         <div class="text-right">
+//             <button class="btn-sm mb-1" onclick="editItem(${index})"> Editar</button> 
+//             <button class="btn-danger btn-sm mb-1" onclick="deleteItem(${index})"> Deletar</button>
+//         </div>
+//         `;
+//         li.classList.add('bordered-list');
+//         itemsList.appendChild(li);
+//     });
+// }
 
-document.getElementById('notes-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const noteTitle = document.getElementById('note-title').value;
-    let notes = JSON.parse(localStorage.getItem('notes')) || [];
-    notes.push({ title: noteTitle, subtopics: [] });
-    localStorage.setItem('notes', JSON.stringify(notes));
-    renderNotes();
-    document.getElementById('note-title').value = ''; // Clear the input
-});
+// function renderSpells() {
+//     const spellsList = document.getElementById('spells-list');
+//     spellsList.innerHTML = '';
+//     const spells = JSON.parse(localStorage.getItem('spells')) || [];
+//     if (spells.length > 0) {
+//         const spellTitle = document.createElement('label');
+//         spellTitle.innerHTML = 'Magias';
+//         spellTitle.classList.add('block', 'mb-2', 'text-lg', 'font-semibold');
+//         spellsList.appendChild(spellTitle);
+//         spellsList.classList.add('bordered-list');
+//     } else {
+//         spellsList.classList.remove('bordered-list');
+//     }
+//     spells.forEach((spell, index) => {
+//         const li = document.createElement('li');
+//         li.innerHTML = `
+//             ${spell.spell} (Level ${spell.level}, ${spell.type}) 
+//             <div class="text-right">
+//                 <button class="btn-sm mb-1" onclick="editSpell(${index})"> Editar</button> 
+//                 <button class="btn-danger btn-sm mb-1" onclick="deleteSpell(${index})"> Deletar</button>
+//             </div>
+//             `;
+//         li.classList.add('bordered-list');
+//         spellsList.appendChild(li);
+//     });
+// }
 
-//FUNÇÕES DE RENDER
-function renderItems() {
-    const itemsList = document.getElementById('items-list');
-    itemsList.innerHTML = '';
-    const items = JSON.parse(localStorage.getItem('items')) || [];
-    if (items.length > 0) {
-        const itemTitle = document.createElement('label');
-        itemTitle.innerHTML = 'Itens';
-        itemTitle.classList.add('block', 'mb-2', 'text-lg', 'font-semibold');
-        itemsList.appendChild(itemTitle);
-        itemsList.classList.add('bordered-list');
-    } else {
-        itemsList.classList.remove('bordered-list');
-    }
-    items.forEach((item, index) => {
-        const li = document.createElement('li');
-        li.innerHTML = `${item.item} (x${item.quantity}, ${item.category})
-        <div class="text-right">
-            <button class="btn-sm mb-1" onclick="editItem(${index})"> Editar</button> 
-            <button class="btn-danger btn-sm mb-1" onclick="deleteItem(${index})"> Deletar</button>
-        </div>
-        `;
-        li.classList.add('bordered-list');
-        itemsList.appendChild(li);
-    });
-}
-
-function renderSpells() {
-    const spellsList = document.getElementById('spells-list');
-    spellsList.innerHTML = '';
-    const spells = JSON.parse(localStorage.getItem('spells')) || [];
-    if (spells.length > 0) {
-        const spellTitle = document.createElement('label');
-        spellTitle.innerHTML = 'Magias';
-        spellTitle.classList.add('block', 'mb-2', 'text-lg', 'font-semibold');
-        spellsList.appendChild(spellTitle);
-        spellsList.classList.add('bordered-list');
-    } else {
-        spellsList.classList.remove('bordered-list');
-    }
-    spells.forEach((spell, index) => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-            ${spell.spell} (Level ${spell.level}, ${spell.type}) 
-            <div class="text-right">
-                <button class="btn-sm mb-1" onclick="editSpell(${index})"> Editar</button> 
-                <button class="btn-danger btn-sm mb-1" onclick="deleteSpell(${index})"> Deletar</button>
-            </div>
-            `;
-        li.classList.add('bordered-list');
-        spellsList.appendChild(li);
-    });
-}
-
-function renderNotes() {
-    const notesList = document.getElementById('notes-list');
-    notesList.innerHTML = '';
-    const notes = JSON.parse(localStorage.getItem('notes')) || [];
-    if (notes.length > 0) {
-        const notesTitle = document.createElement('label');
-        notesTitle.innerHTML = 'Anotações';
-        notesTitle.classList.add('block', 'mb-2', 'text-lg', 'font-semibold');
-        notesList.appendChild(notesTitle);
-        notesList.classList.add('bordered-list');
-    } else {
-        notesList.classList.remove('bordered-list');
-    }
-    notes.forEach((note, index) => {
-        const li = document.createElement('li');
-        li.classList.add('bordered-list', 'd-flex', 'justify-content-between', 'align-items-center');
-        li.innerHTML = `
-            <span class="note-text text-box">${note.title}</span>
-            <div class=" text-right">
-                <button class="btn-sm mb-1" onclick="openNoteModal(${index})">Editar</button>
-                <button class="btn-danger btn-sm mb-1" onclick="deleteNote(${index})">Deletar</button>
-            </div>
-        `;
-        notesList.appendChild(li);
-    });
-}
-function renderSubtopics(subtopics) {
-    const subtopicsList = document.getElementById('subtopics-list');
-    subtopicsList.innerHTML = '';
-    subtopics.forEach((subtopic, index) => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td class="subtopic">${subtopic.replace(/\n/g, '<br>')}</td>
-            <td class="text-right"><button class="btn-danger btn-sm mb-1 text-right" onclick="deleteSubtopic(${index})">Delete</button></td>
-        `;
-        subtopicsList.appendChild(tr);
-    });
-}
-
-//FUNÇÕES MODAL
 function openModal(modalId) {
     if (modalId === 'character-modal') {
         loadCharacterDataToModal();
@@ -195,48 +133,6 @@ function loadCharacterDataToModal() {
     }
 }
 
-function showItemModal(index) {
-    const items = JSON.parse(localStorage.getItem('items'));
-    const item = items[index];
-    document.getElementById('edit-item').value = item.item;
-    document.getElementById('edit-quantity').value = item.quantity;
-    document.getElementById('edit-category').value = item.category;
-    openModal('item-modal');
-
-    document.getElementById('save-item').onclick = function () {
-        items[index].item = document.getElementById('edit-item').value;
-        items[index].quantity = document.getElementById('edit-quantity').value;
-        items[index].category = document.getElementById('edit-category').value;
-        localStorage.setItem('items', JSON.stringify(items));
-        renderItems();
-        closeModal('item-modal');
-    };
-    document.getElementById('cancel-item').onclick = function () {
-        closeModal('item-modal');
-    };
-}
-
-function showSpellModal(index) {
-    const spells = JSON.parse(localStorage.getItem('spells'));
-    const spell = spells[index];
-    document.getElementById('edit-spell').value = spell.spell;
-    document.getElementById('edit-spell-level').value = spell.level;
-    document.getElementById('edit-spell-type').value = spell.type;
-    openModal('spell-modal');
-
-    document.getElementById('save-spell').onclick = function () {
-        spells[index].spell = document.getElementById('edit-spell').value;
-        spells[index].level = document.getElementById('edit-spell-level').value;
-        spells[index].type = document.getElementById('edit-spell-type').value;
-        localStorage.setItem('spells', JSON.stringify(spells));
-        renderSpells();
-        closeModal('spell-modal');
-    };
-    document.getElementById('cancel-spell').onclick = function () {
-        closeModal('spell-modal');
-    };
-}
-
 function openNoteModal(index) {
     currentNoteIndex = index;
     const notes = JSON.parse(localStorage.getItem('notes'));
@@ -250,9 +146,42 @@ function openNoteModal(index) {
     };
 }
 
-//OUTRAS FUNÇÕES
+function renderNotes() {
+    const notesList = document.getElementById('notes-list');
+    notesList.innerHTML = '';
+    const notes = JSON.parse(localStorage.getItem('notes')) || [];
+    if (notes.length > 0) {
+        const notesTitle = document.createElement('label');
+        notesTitle.innerHTML = 'Anotações';
+        notesTitle.classList.add('block', 'mb-2', 'text-lg', 'font-semibold');
+        notesList.appendChild(notesTitle);
+        notesList.classList.add('bordered-list');
+    } else {
+        notesList.classList.remove('bordered-list');
+    }
+    notes.forEach((note, index) => {
+        const li = document.createElement('li');
+        li.classList.add('bordered-list', 'd-flex', 'justify-content-between', 'align-items-center');
+        li.innerHTML = `
+            <span class="note-text text-box">${note.title}</span>
+            <div class=" text-right">
+                <button class="btn-sm mb-1" onclick="openNoteModal(${index})">Editar</button>
+                <button class="btn-danger btn-sm mb-1" onclick="deleteNote(${index})">Deletar</button>
+            </div>
+        `;
+        notesList.appendChild(li);
+    });
+}
 
-let currentNoteIndex = null;
+document.getElementById('notes-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const noteTitle = document.getElementById('note-title').value;
+    let notes = JSON.parse(localStorage.getItem('notes')) || [];
+    notes.push({ title: noteTitle, subtopics: [] });
+    localStorage.setItem('notes', JSON.stringify(notes));
+    renderNotes();
+    document.getElementById('note-title').value = ''; // Clear the input
+});
 
 function addSubtopic() {
     const subtopicText = document.getElementById('subtopic').value;
@@ -268,27 +197,69 @@ function addSubtopic() {
     }
 }
 
-function editItem(index) {
-    showItemModal(index);
+function renderSubtopics(subtopics) {
+    const subtopicsList = document.getElementById('subtopics-list');
+    subtopicsList.innerHTML = '';
+    subtopics.forEach((subtopic, index) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td class="subtopic">${subtopic.replace(/\n/g, '<br>')}</td>
+            <td class="text-right"><button class="btn-danger btn-sm mb-1 text-right" onclick="deleteSubtopic(${index})">Delete</button></td>
+        `;
+        subtopicsList.appendChild(tr);
+    });
 }
 
-function editSpell(index) {
-    showSpellModal(index);
-}
+// function showItemModal(index) {
+//     const items = JSON.parse(localStorage.getItem('items'));
+//     const item = items[index];
+//     document.getElementById('edit-item').value = item.item;
+//     document.getElementById('edit-quantity').value = item.quantity;
+//     document.getElementById('edit-category').value = item.category;
+//     openModal('item-modal');
 
-function deleteItem(index) {
-    const items = JSON.parse(localStorage.getItem('items'));
-    items.splice(index, 1);
-    localStorage.setItem('items', JSON.stringify(items));
-    renderItems();
-}
+//     document.getElementById('save-item').onclick = function () {
+//         items[index].item = document.getElementById('edit-item').value;
+//         items[index].quantity = document.getElementById('edit-quantity').value;
+//         items[index].category = document.getElementById('edit-category').value;
+//         localStorage.setItem('items', JSON.stringify(items));
+//         renderItems();
+//         closeModal('item-modal');
+//     };
+//     document.getElementById('cancel-item').onclick = function () {
+//         closeModal('item-modal');
+//     };
+// }
 
-function deleteSpell(index) {
-    const spells = JSON.parse(localStorage.getItem('spells'));
-    spells.splice(index, 1);
-    localStorage.setItem('spells', JSON.stringify(spells));
-    renderSpells();
-}
+// function showSpellModal(index) {
+//     const spells = JSON.parse(localStorage.getItem('spells'));
+//     const spell = spells[index];
+//     document.getElementById('edit-spell').value = spell.spell;
+//     document.getElementById('edit-spell-level').value = spell.level;
+//     document.getElementById('edit-spell-type').value = spell.type;
+//     openModal('spell-modal');
+
+//     document.getElementById('save-spell').onclick = function () {
+//         spells[index].spell = document.getElementById('edit-spell').value;
+//         spells[index].level = document.getElementById('edit-spell-level').value;
+//         spells[index].type = document.getElementById('edit-spell-type').value;
+//         localStorage.setItem('spells', JSON.stringify(spells));
+//         renderSpells();
+//         closeModal('spell-modal');
+//     };
+//     document.getElementById('cancel-spell').onclick = function () {
+//         closeModal('spell-modal');
+//     };
+// }
+
+let currentNoteIndex = null;
+
+// function deleteItem(index) {
+//     const items = JSON.parse(localStorage.getItem('items'));
+//     items.splice(index, 1);
+//     localStorage.setItem('items', JSON.stringify(items));
+//     renderItems();
+// }
 
 function deleteNote(index) {
     const notes = JSON.parse(localStorage.getItem('notes'));
@@ -304,31 +275,32 @@ function deleteSubtopic(index) {
     renderSubtopics(notes[currentNoteIndex].subtopics);
 }
 
-// EXPORTAÇÃO E IMPORTAÇÃO
-function exportCharacter() {
-    const character = localStorage.getItem('character');
-    const blob = new Blob([character], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'Ficha de Personagem.json';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-}
+//MAUTENÇÃO
+//
+// function exportCharacter() {
+//     const character = localStorage.getItem('character');
+//     const blob = new Blob([character], { type: 'application/json' });
+//     const url = URL.createObjectURL(blob);
+//     const a = document.createElement('a');
+//     a.href = url;
+//     a.download = 'Ficha de Personagem.json';
+//     document.body.appendChild(a);
+//     a.click();
+//     document.body.removeChild(a);
+// }
 
-function importCharacter(event) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = function (e) {
-        const character = JSON.parse(e.target.result);
-        localStorage.setItem('character', JSON.stringify(character));
-        alert('Personagem Importado!');
-        displayCharacter();
-    };
-    reader.readAsText(file);
-}
-//FIM EXPORTAÇÃO E IMPORTAÇÃO
+// function importCharacter(event) {
+//     const file = event.target.files[0];
+//     const reader = new FileReader();
+//     reader.onload = function (e) {
+//         const character = JSON.parse(e.target.result);
+//         localStorage.setItem('character', JSON.stringify(character));
+//         alert('Personagem Importado!');
+//         displayCharacter();
+//     };
+//     reader.readAsText(file);
+// }
+
 
 //DISPLAY, CALCULOS E VALIDAÇÃO
 function displayCharacter() {
@@ -430,7 +402,7 @@ function validateForm(formId) {
 
 
 // Initial render
-renderItems();
-renderSpells();
+// renderItems();
+// renderSpells();
 renderNotes();
 displayCharacter();

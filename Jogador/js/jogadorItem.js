@@ -29,7 +29,7 @@ function displayItems(items) {
             container.appendChild(itemCard);
         });
     }
-}   
+}
 
 // Função para filtrar itens com base na pesquisa
 function filterItems(items, searchText) {
@@ -41,7 +41,7 @@ function filterItems(items, searchText) {
 // Esperar o DOM estar completamente carregado
 document.addEventListener('DOMContentLoaded', async () => {
     const items = await fetchItems();
-    displayItems(items);
+    displayItems(items); 
 
     const searchInput = document.getElementById('search');
     if (searchInput) {
