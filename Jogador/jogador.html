@@ -41,7 +41,7 @@
             <form id="notes-form">
                 <div class="mb-4">
                     <label class="block mb-1" for="note-title">Título da Anotação</label>
-                    <input class="w-full p-2 border rounded" type="text" id="note-title" required>
+                    <input class="w-full p-2 border rounded" type="text" id="note-title" placeholder="Título da anotação"required>
                 </div>
                 <div class="mb-2 text-center">
                     <button class="px-4 py-2 rounded" type="submit">Adicionar Anotação</button>
@@ -74,7 +74,6 @@
             <div id="spells-list" class="mt-4"></div>
         </section>
 
-
         <!-- SECTION DE IMPORT -->
         <!-- MANUTENÇÃO -->
         <section class="p-4 rounded shadow-md mb-6" id="exp-imp-section">
@@ -95,27 +94,27 @@
             <!-- Conteúdo do Modal -->
             <h3 class="text-lg leading-6 font-medium" id="character-modal">Informação do Personagem</h3>
             <form id="character-form-modal">
-                <div class="mb-4">
+                <div class="">
                     <label class="block mb-1" for="name-modal">Nome</label>
                     <input class="w-full p-2 border rounded" type="text" id="name-modal" required>
                 </div>
-                <div class="mb-4">
+                <div class="">
                     <label class="block mb-1" for="race-modal">Raça</label>
                     <input class="w-full p-2 border rounded" type="text" id="race-modal" required>
                 </div>
-                <div class="mb-4">
+                <div class="">
                     <label class="block mb-1" for="level-modal" min="1" max="20">Level</label>
                     <input class="w-full p-2 border rounded" type="number" id="level-modal" required>
                 </div>
-                <div class="mb-4">
+                <div class="">
                     <label class="block mb-1" for="class-modal">Classe</label>
                     <input class="w-full p-2 border rounded" type="text" id="class-modal" required>
                 </div>
-                <div class="mb-4">
+                <div class="">
                     <label class="block mb-1" for="armor-class-modal">Classe de Armadura (CA)</label>
                     <input class="w-full p-2 border rounded" type="number" id="armor-class-modal" required>
                 </div>
-                <div class="mb-4">
+                <div class="">
                     <label class="block mb-1" for="initiative-modal">Iniciativa Extra</label>
                     <select class="w-full p-2 border rounded" id="initiative-modal" required>
                         <option value="0">0</option>
@@ -131,47 +130,47 @@
                         <option value="10">10</option>
                     </select>
                 </div>
-                <div class="mb-4">
+                <div class="">
                     <label class="block mb-1" for="hit-points-modal">Pontos de Vitalidade (PV)</label>
                     <input class="w-full p-2 border rounded" type="number" id="hit-points-modal" required>
                 </div>
-                <div class="mb-4">
+                <div class="">
                     <label class="block mb-1" for="strength-modal">Força</label>
                     <input class="w-full p-2 border rounded" type="number" id="strength-modal" required>
                 </div>
-                <div class="mb-4">
+                <div class="">
                     <label class="block mb-1" for="dexterity-modal">Destreza</label>
                     <input class="w-full p-2 border rounded" type="number" id="dexterity-modal" required>
                 </div>
-                <div class="mb-4">
+                <div class="">
                     <label class="block mb-1" for="constitution-modal">Constituição</label>
                     <input class="w-full p-2 border rounded" type="number" id="constitution-modal" required>
                 </div>
-                <div class="mb-4">
+                <div class="">
                     <label class="block mb-1" for="intelligence-modal">Inteligência</label>
                     <input class="w-full p-2 border rounded" type="number" id="intelligence-modal" required>
                 </div>
-                <div class="mb-4">
+                <div class="">
                     <label class="block mb-1" for="wisdom-modal">Sabedoria</label>
                     <input class="w-full p-2 border rounded" type="number" id="wisdom-modal" required>
                 </div>
-                <div class="mb-4">
+                <div class="">
                     <label class="block mb-1" for="charisma-modal">Carisma</label>
                     <input class="w-full p-2 border rounded" type="number" id="charisma-modal" required>
                 </div>
-                <div class="mb-4">
+                <div class="">
                     <label class="block mb-1" for="abilities-modal">Habilidades</label>
-                    <textarea class="w-full p-2 border rounded text-box" id="abilities-modal" rows="3"
+                    <textarea class="w-full p-2 border rounded text-box" id="abilities-modal" rows="4"
                         required></textarea>
                 </div>
-                <div class="mb-4">
+                <div class="">
                     <label class="block mb-1" for="background-modal">Background</label>
-                    <textarea class="w-full p-2 border rounded text-box" id="background-modal" rows="3"
+                    <textarea class="w-full p-2 border rounded text-box" id="background-modal" rows="4"
                         required></textarea>
                 </div>
-                <div class="mb-4">
+                <div class="">
                     <label class="block mb-1" for="traits-modal">Características</label>
-                    <textarea class="w-full p-2 border rounded text-box" id="traits-modal" rows="3" required></textarea>
+                    <textarea class="w-full p-2 border rounded text-box" id="traits-modal" rows="4" required></textarea>
                 </div>
                 <div class="px-4 py-3 text-right">
                     <button id="save-character" class="px-4 py-2 rounded">Salvar</button>
@@ -237,8 +236,8 @@
             <table class="mt-4 w-full">
                 <thead>
                     <tr>
-                        <th class="text-left">Subtópico</th>
-                        <th class="text-right">Ações</th>
+                        <th class="text-center">Subtópico</th>
+                        <th class="text-center">Ações</th>
                     </tr>
                 </thead>
                 <tbody id="subtopics-list">
