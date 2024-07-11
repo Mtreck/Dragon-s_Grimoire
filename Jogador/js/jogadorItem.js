@@ -25,6 +25,7 @@ function displayItems(items) {
                 <p><strong>Qualidade:</strong> ${item.Qualidade}</p>
                 <p><strong>Tipo:</strong> ${item.Tipo}</p>
                 <p><strong>Origem:</strong> ${item.Origem}</p>
+                <button onclick="addItemToList('${item.Nome}', '${item.Descrição}')">Adicionar Item</button>
             `;
             container.appendChild(itemCard);
         });

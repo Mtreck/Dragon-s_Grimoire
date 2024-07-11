@@ -22,6 +22,7 @@ function exibirMagias() {
                     <p><strong>Componentes:</strong> ${magia.componentes}</p>
                     <p><strong>Duração:</strong> ${magia.duracao}</p>
                     <p><strong>Descrição:</strong> ${magia.descricao}</p>
+                    <button onclick="addSpellToList('${magia.nome}','${magia.Escola}','${magia.nivel}')">Adicionar Magia</button>
                 `;
                 magiasContainer.appendChild(spellCard);
             });

@@ -146,6 +146,48 @@ function renderSubtopics(subtopics) {
     });
 }
 
+// Função para adicionar item à lista de itens
+function addItemToList(itemName, itemDescription) {
+    const itemsList = document.getElementById('items-list');
+    const listItem = document.createElement('div');
+    listItem.classList.add('item-list-card');
+
+    listItem.innerHTML = `
+        <div>
+            <h4>${itemName}</h4>
+            <p>${itemDescription}</p>
+            <label for="quantity">Quantidade:</label>
+            <input type="number" id="quantity" name="quantity" value="1" min="1" style="width: 25%; height: 30px">
+        </div>
+        <div class="item-buttons">
+            <button class="px-3 py-1 rounded">Editar</button>
+            <button class="btn-danger px-3 py-1 rounded">Excluir</button>
+        </div>
+    `;
+
+    itemsList.appendChild(listItem);
+}
+
+// Função para adicionar magia à lista de magias
+function addSpellToList(spellName,spellEscola,spellNivel) {
+    const spellsList = document.getElementById('spells-list');
+    const listItem = document.createElement('div');
+    listItem.classList.add('spell-list-card');
+
+    listItem.innerHTML = `
+        <div>
+            <h4>${spellName}</h4>
+            <p>${spellNivel}° Circulo, Magia de ${spellEscola}</p>
+        </div>
+        <div class="spell-buttons">
+            <button class="px-3 py-1 rounded">Ver</button>
+            <button class="btn-danger px-3 py-1 rounded">Excluir</button>
+        </div>
+    `;
+
+    spellsList.appendChild(listItem);
+}
+
 let currentNoteIndex = null;
 
 function deleteNote(index) {
@@ -161,8 +203,6 @@ function deleteSubtopic(index) {
     localStorage.setItem('notes', JSON.stringify(notes));
     renderSubtopics(notes[currentNoteIndex].subtopics);
 }
-
-//MAUTENÇÃO
 
 function exportCharacter() {
     const character = JSON.parse(localStorage.getItem('character'));
