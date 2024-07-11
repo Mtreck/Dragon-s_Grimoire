@@ -2,6 +2,7 @@ body {
     background-image: url(/img/jogadores.jpg);
     font-family: Arial, sans-serif;
     background-size: cover;
+    background-position: 35%;
 }
 
 header {
@@ -71,7 +72,7 @@ h3 {
 }
 
 section {
-    background-color: #1a1a1a;
+    background-color: #1a1a1acc;
     color: #ffffff;
     padding: 1.5rem;
     border-radius: 0.5rem;
