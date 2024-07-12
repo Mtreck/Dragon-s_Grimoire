@@ -1,4 +1,6 @@
-import { db, collection, getDocs, query, where } from "../../bd.js";
+// import { db, collection, getDocs, query, where } from "../../bd.js";
+
+
 
 //FUNÇÕES DE SUBMIT
 document.getElementById('save-character').onclick = function () {
@@ -200,7 +202,7 @@ function renderItems() {
 }
 
 // Função para adicionar magia à lista de magias
-function addSpellToList(spellName,spellEscola,spellNivel) {
+function addSpellToList(spellName,spellEscola,spellNivel,spellDescricao) {
     const existingSpells = JSON.parse(localStorage.getItem('spells')) || [];
 
     // Verificar se a magia já existe
@@ -215,6 +217,7 @@ function addSpellToList(spellName,spellEscola,spellNivel) {
         name: spellName,
         escola: spellEscola,
         nivel: spellNivel,
+        descricao: spellDescricao,
     };
     existingSpells.push(newSpell);
     localStorage.setItem('spells', JSON.stringify(existingSpells));
@@ -249,46 +252,27 @@ function renderSpells() {
 }
 
 async function descricao(nomeMagia) {
-    try {
-        // Criar uma query para buscar a magia pelo nome
-        const magiaQuery = query(collection(db, "magias"), where("nome", "==", nomeMagia));
-        const querySnapshot = await getDocs(magiaQuery);
-
-        if (!querySnapshot.empty) {
-            const magiaDoc = querySnapshot.docs[0];
-            const magia = magiaDoc.data();
-
-            // Montar o conteúdo do modal
-            const modalContent = `
-                <div class="modal-content">
-                    <div class="container mb-3">
-                        <h1>${magia.nome}</h1>
-                        <button class="btn-danger px-3 py-1 rounded" onclick="closeModal('descricao-modal')">Fechar</button>
-                    </div>
-                    <div class="magia-detalhes">
-                        <p><strong>Nível:</strong> ${magia.nivel}</p>
-                        <p><strong>Escola:</strong> ${magia.Escola}</p>
-                        <p><strong>Tempo de Conjuração:</strong> ${magia.tempo_conjuracao}</p>
-                        <p><strong>Alcance:</strong> ${magia.alcance} metros</p>
-                        <p><strong>Componentes:</strong> ${magia.componentes}</p>
-                        <p><strong>Duração:</strong> ${magia.duracao}</p>
-                        <p><strong>Descrição:</strong> ${magia.descricao}</p>
-                    </div>
+    const magia = await getMagiaByName(nomeMagia);
+    if (magia) {
+        const modalContent = `
+            <div class="modal-content">
+                <div class="container mb-3">
+                    <h1>${magia.nome}</h1>
+                    <button onclick="closeModal('descricao-modal')" class="btn-danger px-3 py-1 rounded">Sair</button>
                 </div>
-            `;
-
-            // Inserir o conteúdo no modal
-            const descricaoModal = document.getElementById("descricao-modal");
-            descricaoModal.innerHTML = modalContent;
-
-            // Exibir o modal
-            openModal('descricao-modal');
-        } else {
-            alert("Magia não encontrada.");
-        }
-    } catch (error) {
-        console.error("Erro ao buscar magia:", error);
-        alert("Erro ao buscar magia. Verifique o console para mais detalhes.");
+                <p><strong>Nível:</strong> ${magia.nivel}</p>
+                <p><strong>Escola:</strong> ${magia.Escola}</p>
+                <p><strong>Tempo de Conjuração:</strong> ${magia.tempo_conjuracao}</p>
+                <p><strong>Alcance:</strong> ${magia.alcance} metros</p>
+                <p><strong>Componentes:</strong> ${magia.componentes}</p>
+                <p><strong>Duração:</strong> ${magia.duracao}</p>
+                <p><strong>Descrição:</strong> ${magia.descricao}</p>
+            </div>
+        `;
+        document.getElementById('descricao-modal').innerHTML = modalContent;
+        openModal('descricao-modal');
+    } else {
+        console.error('Magia não encontrada no banco de dados.');
     }
 }
 
@@ -454,6 +438,16 @@ function validateForm(formId) {
     return valid;
 }
 
+// window.toggleSection = toggleSection;
+// window.importCharacter  = importCharacter;
+// window.exportCharacter = exportCharacter;
+// window.deleteSubtopic = deleteSubtopic; 
+// window.deleteNote = deleteNote;
+// window.descricao = descricao;
+// window.addSpellToList = addSpellToList;
+// window.addItemToList = addItemToList; 
+// window.addSubtopic = addSubtopic;
+// window.openNoteModal = openNoteModal;
 
 // Initial render
 // renderItems();
