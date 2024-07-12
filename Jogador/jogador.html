@@ -41,7 +41,8 @@
             <form id="notes-form">
                 <div class="mb-4">
                     <label class="block mb-1" for="note-title">Título da Anotação</label>
-                    <input class="w-full p-2 border rounded" type="text" id="note-title" placeholder="Título da anotação"required>
+                    <input class="w-full p-2 border rounded" type="text" id="note-title"
+                        placeholder="Título da anotação" required>
                 </div>
                 <div class="mb-2 text-center">
                     <button class="px-4 py-2 rounded" type="submit">Adicionar Anotação</button>
@@ -220,6 +221,12 @@
         </div>
     </div>
 
+    <!-- MODAL PARA DESCRIÇÃO COMPLETA DA MAGIA -->
+    <div id="descricao-modal" class="fixed hidden modal" aria-labelledby="descricao-modal" role="dialog"
+        aria-modal="true">
+        <!-- O conteúdo será dinamicamente inserido pela função descricao -->
+    </div>
+
     <!-- Modal para Notas Mentais -->
     <div id="note-modal" class="fixed hidden modal" aria-labelledby="note-modal" role="dialog" aria-modal="true">
         <div class="modal-content">
@@ -250,7 +257,7 @@
         </div>
     </div>
 
-    <script src="js/jogador.js"></script>
+    <script type="module" src="js/jogador.js"></script>
     <script type="module" src="../bd.js"></script>
     <script type="module" src="/Jogador/js/jogadorItem.js"></script>
     <script type="module" src="/Jogador/js/jogadorMagia.js"></script>

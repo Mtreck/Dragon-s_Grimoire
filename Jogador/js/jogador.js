@@ -1,3 +1,5 @@
+import { db, collection, getDocs, query, where } from "../../bd.js";
+
 //FUNÇÕES DE SUBMIT
 document.getElementById('save-character').onclick = function () {
     if (validateForm('character-form-modal')) {
@@ -148,44 +150,146 @@ function renderSubtopics(subtopics) {
 
 // Função para adicionar item à lista de itens
 function addItemToList(itemName, itemDescription) {
+    const existingItems = JSON.parse(localStorage.getItem('items')) || [];
+
+    // Verificar se o item já existe
+    const itemExists = existingItems.some(item => item.name === itemName);
+    if (itemExists) {
+        alert('Este item já está na lista.');
+        return;
+    }
+
+    // Adicionar o item ao localStorage
+    const newItem = {
+        name: itemName,
+        description: itemDescription,
+        quantity: 1
+    };
+    existingItems.push(newItem);
+    localStorage.setItem('items', JSON.stringify(existingItems));
+
+    // Renderizar o item na lista
+    renderItems();
+}
+
+// Função para renderizar itens na lista
+function renderItems() {
     const itemsList = document.getElementById('items-list');
-    const listItem = document.createElement('div');
-    listItem.classList.add('item-list-card');
+    const items = JSON.parse(localStorage.getItem('items')) || [];
 
-    listItem.innerHTML = `
-        <div>
-            <h4>${itemName}</h4>
-            <p>${itemDescription}</p>
-            <label for="quantity">Quantidade:</label>
-            <input type="number" id="quantity" name="quantity" value="1" min="1" style="width: 25%; height: 30px">
-        </div>
-        <div class="item-buttons">
-            <button class="px-3 py-1 rounded">Editar</button>
-            <button class="btn-danger px-3 py-1 rounded">Excluir</button>
-        </div>
-    `;
+    itemsList.innerHTML = '';
+    items.forEach(item => {
+        const listItem = document.createElement('div');
+        listItem.classList.add('item-list-card');
 
-    itemsList.appendChild(listItem);
+        listItem.innerHTML = `
+            <div class="item-info">
+                <h4>${item.name}</h4>
+                <p>${item.description}</p>
+                <label for="quantity-${item.name}">Quantidade:</label>
+                <input type="number" id="quantity-${item.name}" name="quantity" value="${item.quantity}" min="1" style="width: 25%; height: 30px">
+            </div>
+            <div class="item-buttons">
+                <button class="px-3 py-1 rounded">Editar</button>
+                <button class="btn-danger px-3 py-1 rounded">Excluir</button>
+            </div>
+        `;
+
+        itemsList.appendChild(listItem);
+    });
 }
 
 // Função para adicionar magia à lista de magias
 function addSpellToList(spellName,spellEscola,spellNivel) {
+    const existingSpells = JSON.parse(localStorage.getItem('spells')) || [];
+
+    // Verificar se a magia já existe
+    const spellExists = existingSpells.some(spell => spell.name === spellName);
+    if (spellExists) {
+        alert('Esta magia já está na lista.');
+        return;
+    }
+
+    // Adicionar a magia ao localStorage
+    const newSpell = {
+        name: spellName,
+        escola: spellEscola,
+        nivel: spellNivel,
+    };
+    existingSpells.push(newSpell);
+    localStorage.setItem('spells', JSON.stringify(existingSpells));
+
+    // Renderizar a magia na lista
+    renderSpells();
+}
+
+// Função para renderizar magias na lista
+function renderSpells() {
     const spellsList = document.getElementById('spells-list');
-    const listItem = document.createElement('div');
-    listItem.classList.add('spell-list-card');
+    const spells = JSON.parse(localStorage.getItem('spells')) || [];
 
-    listItem.innerHTML = `
-        <div>
-            <h4>${spellName}</h4>
-            <p>${spellNivel}° Circulo, Magia de ${spellEscola}</p>
-        </div>
-        <div class="spell-buttons">
-            <button class="px-3 py-1 rounded">Ver</button>
-            <button class="btn-danger px-3 py-1 rounded">Excluir</button>
-        </div>
-    `;
+    spellsList.innerHTML = '';
+    spells.forEach(spell => {
+        const listSpell = document.createElement('div');
+        listSpell.classList.add('spell-list-card'); 
 
-    spellsList.appendChild(listItem);
+        listSpell.innerHTML = `
+            <div>
+                <h4>${spell.name}</h4>
+                <p>${spell.nivel}° Circulo, Magia de ${spell.escola}</p>
+            </div>
+            <div class="spell-buttons">
+                <button class="view-button px-3 py-1 rounded" onclick="descricao('${spell.name}')">Ver</button>
+                <button class="delete-button btn-danger px-3 py-1 rounded">Excluir</button>
+            </div>
+        `;
+
+        spellsList.appendChild(listSpell);
+    });
+}
+
+async function descricao(nomeMagia) {
+    try {
+        // Criar uma query para buscar a magia pelo nome
+        const magiaQuery = query(collection(db, "magias"), where("nome", "==", nomeMagia));
+        const querySnapshot = await getDocs(magiaQuery);
+
+        if (!querySnapshot.empty) {
+            const magiaDoc = querySnapshot.docs[0];
+            const magia = magiaDoc.data();
+
+            // Montar o conteúdo do modal
+            const modalContent = `
+                <div class="modal-content">
+                    <div class="container mb-3">
+                        <h1>${magia.nome}</h1>
+                        <button class="btn-danger px-3 py-1 rounded" onclick="closeModal('descricao-modal')">Fechar</button>
+                    </div>
+                    <div class="magia-detalhes">
+                        <p><strong>Nível:</strong> ${magia.nivel}</p>
+                        <p><strong>Escola:</strong> ${magia.Escola}</p>
+                        <p><strong>Tempo de Conjuração:</strong> ${magia.tempo_conjuracao}</p>
+                        <p><strong>Alcance:</strong> ${magia.alcance} metros</p>
+                        <p><strong>Componentes:</strong> ${magia.componentes}</p>
+                        <p><strong>Duração:</strong> ${magia.duracao}</p>
+                        <p><strong>Descrição:</strong> ${magia.descricao}</p>
+                    </div>
+                </div>
+            `;
+
+            // Inserir o conteúdo no modal
+            const descricaoModal = document.getElementById("descricao-modal");
+            descricaoModal.innerHTML = modalContent;
+
+            // Exibir o modal
+            openModal('descricao-modal');
+        } else {
+            alert("Magia não encontrada.");
+        }
+    } catch (error) {
+        console.error("Erro ao buscar magia:", error);
+        alert("Erro ao buscar magia. Verifique o console para mais detalhes.");
+    }
 }
 
 let currentNoteIndex = null;
@@ -207,7 +311,7 @@ function deleteSubtopic(index) {
 function exportCharacter() {
     const character = JSON.parse(localStorage.getItem('character'));
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
-    
+
     if (character) {
         const dataToExport = {
             character,
@@ -230,11 +334,11 @@ function exportCharacter() {
 function importCharacter(event) {
     const file = event.target.files[0];
     const reader = new FileReader();
-    
-    reader.onload = function(e) {
+
+    reader.onload = function (e) {
         const importedData = JSON.parse(e.target.result);
         const { character, notes } = importedData;
-        
+
         if (character) {
             localStorage.setItem('character', JSON.stringify(character));
             displayCharacter();
@@ -354,5 +458,10 @@ function validateForm(formId) {
 // Initial render
 // renderItems();
 // renderSpells();
-renderNotes();
-displayCharacter();
+// Renderizar itens e magias ao carregar a página
+document.addEventListener('DOMContentLoaded', () => {
+    renderItems();
+    renderSpells();
+    renderNotes();
+    displayCharacter();
+});

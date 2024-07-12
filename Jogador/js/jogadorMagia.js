@@ -13,6 +13,7 @@ function exibirMagias() {
                 const spellCard = document.createElement('div');
                 spellCard.classList.add('spell-card');
 
+
                 spellCard.innerHTML = `
                     <h3>${magia.nome}</h3>
                     <p><strong>Nível:</strong> ${magia.nivel}</p>
@@ -22,7 +23,7 @@ function exibirMagias() {
                     <p><strong>Componentes:</strong> ${magia.componentes}</p>
                     <p><strong>Duração:</strong> ${magia.duracao}</p>
                     <p><strong>Descrição:</strong> ${magia.descricao}</p>
-                    <button onclick="addSpellToList('${magia.nome}','${magia.Escola}','${magia.nivel}')">Adicionar Magia</button>
+                    <button onclick="addSpellToList('${magia.nome}', '${magia.Escola}', '${magia.nivel}')">Adicionar Magia</button>
                 `;
                 magiasContainer.appendChild(spellCard);
             });
