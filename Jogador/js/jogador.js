@@ -202,7 +202,7 @@ function renderItems() {
 }
 
 // Função para adicionar magia à lista de magias
-function addSpellToList(spellName,spellEscola,spellNivel,spellDescricao) {
+function addSpellToList(spellName,spellEscola,spellNivel) {
     const existingSpells = JSON.parse(localStorage.getItem('spells')) || [];
 
     // Verificar se a magia já existe
@@ -217,7 +217,7 @@ function addSpellToList(spellName,spellEscola,spellNivel,spellDescricao) {
         name: spellName,
         escola: spellEscola,
         nivel: spellNivel,
-        descricao: spellDescricao,
+        // descricao: spellDescricao,
     };
     existingSpells.push(newSpell);
     localStorage.setItem('spells', JSON.stringify(existingSpells));
@@ -251,8 +251,8 @@ function renderSpells() {
     });
 }
 
-async function descricao(nomeMagia) {
-    const magia = await getMagiaByName(nomeMagia);
+ function descricao(nomeMagia) {
+    const magia = getMagiaByName(nomeMagia);
     if (magia) {
         const modalContent = `
             <div class="modal-content">
