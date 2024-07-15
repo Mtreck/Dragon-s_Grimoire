@@ -201,31 +201,6 @@ function renderItems() {
     });
 }
 
-// Função para adicionar magia à lista de magias
-function addSpellToList(spellName,spellEscola,spellNivel) {
-    const existingSpells = JSON.parse(localStorage.getItem('spells')) || [];
-
-    // Verificar se a magia já existe
-    const spellExists = existingSpells.some(spell => spell.name === spellName);
-    if (spellExists) {
-        alert('Esta magia já está na lista.');
-        return;
-    }
-
-    // Adicionar a magia ao localStorage
-    const newSpell = {
-        name: spellName,
-        escola: spellEscola,
-        nivel: spellNivel,
-        // descricao: spellDescricao,
-    };
-    existingSpells.push(newSpell);
-    localStorage.setItem('spells', JSON.stringify(existingSpells));
-
-    // Renderizar a magia na lista
-    renderSpells();
-}
-
 // Função para renderizar magias na lista
 function renderSpells() {
     const spellsList = document.getElementById('spells-list');
