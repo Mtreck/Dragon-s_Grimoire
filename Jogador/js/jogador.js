@@ -105,8 +105,8 @@ function renderNotes() {
         li.innerHTML = `
             <span class="note-text text-box">${note.title}</span>
             <div class=" text-right">
-                <button class="btn-sm mb-1" onclick="openNoteModal(${index})">Editar</button>
-                <button class="btn-danger btn-sm mb-1" onclick="deleteNote(${index})">Deletar</button>
+                <button class="mb-1 px-3 py-1 rounded" onclick="openNoteModal(${index})">Ver</button>
+                <button class="btn-danger mb-1 px-2 py-1" onclick="deleteNote(${index})">Deletar</button>
             </div>
         `;
         notesList.appendChild(li);
@@ -148,107 +148,6 @@ function renderSubtopics(subtopics) {
         `;
         subtopicsList.appendChild(tr);
     });
-}
-
-// Função para adicionar item à lista de itens
-function addItemToList(itemName, itemDescription) {
-    const existingItems = JSON.parse(localStorage.getItem('items')) || [];
-
-    // Verificar se o item já existe
-    const itemExists = existingItems.some(item => item.name === itemName);
-    if (itemExists) {
-        alert('Este item já está na lista.');
-        return;
-    }
-
-    // Adicionar o item ao localStorage
-    const newItem = {
-        name: itemName,
-        description: itemDescription,
-        quantity: 1
-    };
-    existingItems.push(newItem);
-    localStorage.setItem('items', JSON.stringify(existingItems));
-
-    // Renderizar o item na lista
-    renderItems();
-}
-
-// Função para renderizar itens na lista
-function renderItems() {
-    const itemsList = document.getElementById('items-list');
-    const items = JSON.parse(localStorage.getItem('items')) || [];
-
-    itemsList.innerHTML = '';
-    items.forEach(item => {
-        const listItem = document.createElement('div');
-        listItem.classList.add('item-list-card');
-
-        listItem.innerHTML = `
-            <div class="item-info">
-                <h4>${item.name}</h4>
-                <p>${item.description}</p>
-                <label for="quantity-${item.name}">Quantidade:</label>
-                <input type="number" id="quantity-${item.name}" name="quantity" value="${item.quantity}" min="1" style="width: 25%; height: 30px">
-            </div>
-            <div class="item-buttons">
-                <button class="px-3 py-1 rounded">Editar</button>
-                <button class="btn-danger px-3 py-1 rounded">Excluir</button>
-            </div>
-        `;
-
-        itemsList.appendChild(listItem);
-    });
-}
-
-// Função para renderizar magias na lista
-function renderSpells() {
-    const spellsList = document.getElementById('spells-list');
-    const spells = JSON.parse(localStorage.getItem('spells')) || [];
-
-    spellsList.innerHTML = '';
-    spells.forEach(spell => {
-        const listSpell = document.createElement('div');
-        listSpell.classList.add('spell-list-card'); 
-
-        listSpell.innerHTML = `
-            <div>
-                <h4>${spell.name}</h4>
-                <p>${spell.nivel}° Circulo, Magia de ${spell.escola}</p>
-            </div>
-            <div class="spell-buttons">
-                <button class="view-button px-3 py-1 rounded" onclick="descricao('${spell.name}')">Ver</button>
-                <button class="delete-button btn-danger px-3 py-1 rounded">Excluir</button>
-            </div>
-        `;
-
-        spellsList.appendChild(listSpell);
-    });
-}
-
- function descricao(nomeMagia) {
-    const magia = getMagiaByName(nomeMagia);
-    if (magia) {
-        const modalContent = `
-            <div class="modal-content">
-                <div class="container mb-3">
-                    <h1>${magia.nome}</h1>
-                    <button onclick="closeModal('descricao-modal')" class="btn-danger px-3 py-1 rounded">Sair</button>
-                </div>
-                <p><strong>Nível:</strong> ${magia.nivel}</p>
-                <p><strong>Escola:</strong> ${magia.Escola}</p>
-                <p><strong>Tempo de Conjuração:</strong> ${magia.tempo_conjuracao}</p>
-                <p><strong>Alcance:</strong> ${magia.alcance} metros</p>
-                <p><strong>Componentes:</strong> ${magia.componentes}</p>
-                <p><strong>Duração:</strong> ${magia.duracao}</p>
-                <p><strong>Descrição:</strong> ${magia.descricao}</p>
-            </div>
-        `;
-        document.getElementById('descricao-modal').innerHTML = modalContent;
-        openModal('descricao-modal');
-    } else {
-        console.error('Magia não encontrada no banco de dados.');
-    }
 }
 
 let currentNoteIndex = null;
@@ -429,8 +328,6 @@ function validateForm(formId) {
 // renderSpells();
 // Renderizar itens e magias ao carregar a página
 document.addEventListener('DOMContentLoaded', () => {
-    renderItems();
-    renderSpells();
     renderNotes();
     displayCharacter();
 });

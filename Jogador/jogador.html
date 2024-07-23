@@ -187,7 +187,7 @@
             <div class="container mb-3">
                 <h1>Busca de Itens</h1>
                 <button id="cancel-item" onclick="closeModal('item-modal')"
-                    class="btn-danger px-3 py-1 rounded">Sair</button>
+                    class="btn-danger px-3 py-1 rounded">&times;</button>
             </div>
             <div id="item-list-container" class="form-container2">
                 <h2>Listagem</h2>
@@ -196,8 +196,27 @@
             </div>
             <div class="px-4 py-3 text-right">
                 <button id="cancel-item" onclick="closeModal('item-modal')"
-                    class="btn-danger px-3 py-1 rounded">Sair</button>
+                    class="btn-danger px-3 py-1 rounded">&times;</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Modal para edição de itens -->
+    <div id="edit-item-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="container mb-3">
+                <h1>Editar item</h1>
+                <span class="btn-danger px-3 py-1 rounded close-button">&times;</span>
+            </div>
+            <form id="edit-item-form">
+                <label for="edit-item-nome">Nome:</label>
+                <input type="text" id="edit-item-nome" name="nome" required>
+                <label for="edit-item-quantidade">Quantidade:</label>
+                <input type="number" id="edit-item-quantidade" name="quantidade" required>
+                <label for="edit-item-descricao">Descrição:</label>
+                <input type="text" id="edit-item-descricao" name="descricao" required>
+                <button type="submit">Salvar Alterações</button>
+            </form>
         </div>
     </div>
 
@@ -222,9 +241,10 @@
     </div>
 
     <!-- MODAL PARA DESCRIÇÃO COMPLETA DA MAGIA -->
-    <div id="descricao-modal" class="fixed hidden modal" aria-labelledby="descricao-modal" role="dialog"
+    <div id="all-spell-modal" class="fixed hidden modal" aria-labelledby="descricao-modal" role="dialog"
         aria-modal="true">
-        <!-- O conteúdo será dinamicamente inserido pela função descricao -->
+        <!-- O conteúdo será dinamicamente inserido pela função-->
+        <div id="spell-list-info"></div>
     </div>
 
     <!-- Modal para Notas Mentais -->
