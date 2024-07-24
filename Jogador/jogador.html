@@ -215,7 +215,7 @@
                 <input type="number" id="edit-item-quantidade" name="quantidade" required>
                 <label for="edit-item-descricao">Descrição:</label>
                 <input type="text" id="edit-item-descricao" name="descricao" required>
-                <button type="submit">Salvar Alterações</button>
+                <div class="text-right"><button type="submit">Salvar Alterações</button></div>
             </form>
         </div>
     </div>
@@ -243,8 +243,10 @@
     <!-- MODAL PARA DESCRIÇÃO COMPLETA DA MAGIA -->
     <div id="all-spell-modal" class="fixed hidden modal" aria-labelledby="descricao-modal" role="dialog"
         aria-modal="true">
-        <!-- O conteúdo será dinamicamente inserido pela função-->
-        <div id="spell-list-info"></div>
+        <div class="modal-content">
+            <div id="spell-list-info"></div>
+            <!-- <button id="close-spell-modal" class="btn-danger px-3 py-1 rounded" onclick="closeModal('all-spell-modal')">Fechar</button> -->
+        </div>
     </div>
 
     <!-- Modal para Notas Mentais -->
@@ -278,7 +280,6 @@
     </div>
 
     <script src="js/jogador.js"></script>
-    <script type="module" src="../bd.js"></script>
     <script type="module" src="/Jogador/js/jogadorItem.js"></script>
     <script type="module" src="/Jogador/js/jogadorMagia.js"></script>
     <!-- <script type="module" src="/Mestre/js/magias.js"></script> -->

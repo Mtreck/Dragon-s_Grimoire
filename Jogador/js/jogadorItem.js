@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p><strong>Origem:</strong> ${items.Origem}</p>
                     <p><strong>PO:</strong> ${items.Po}</p>
                     <p><strong>Descrição:</strong> ${items.Descrição}</p>                  
-                    <button type="button" class="add-item-btn">Adicionar Item</button>
+                    <div class="text-right"><button type="button" class="add-item-btn">Adicionar Item</button><\div>
                 `;
                 itemsContainer.appendChild(itemCard);
 
