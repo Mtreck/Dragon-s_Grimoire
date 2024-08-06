@@ -163,8 +163,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div><strong>Descrição:</strong> ${item.descricao}</div>
                     <div><strong>PO:</strong> ${item.po}</div>
                     <div class="text-right">
-                    <button type="button" class="px-2 py-1 rounded edit-item-btn">Editar</button>
-                    <button type="button" class="btn-danger px-2 py-1 rounded delete-item-btn">Excluir</button>
+                    <button type="button" class="px-3 py-1 rounded edit-item-btn">Editar</button>
+                    <button type="button" class="btn-danger px-3 py-1 rounded delete-item-btn">Excluir</button>
                     </div>
                 `;
                 itemsList.appendChild(listItem);

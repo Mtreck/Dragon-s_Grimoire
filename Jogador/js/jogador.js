@@ -1,7 +1,6 @@
 // import { db, collection, getDocs, query, where } from "../../bd.js";
 
 
-
 //FUNÇÕES DE SUBMIT
 document.getElementById('save-character').onclick = function () {
     if (validateForm('character-form-modal')) {
@@ -71,99 +70,6 @@ function loadCharacterDataToModal() {
         document.getElementById('background-modal').value = character.background;
         document.getElementById('traits-modal').value = character.traits;
     }
-}
-
-function openNoteModal(index) {
-    currentNoteIndex = index;
-    const notes = JSON.parse(localStorage.getItem('notes'));
-    const note = notes[index];
-    document.getElementById('edit-note-title').value = note.title;
-    renderSubtopics(note.subtopics);
-    openModal('note-modal');
-
-    document.getElementById('close-note').onclick = function () {
-        closeModal('note-modal');
-    };
-}
-
-function renderNotes() {
-    const notesList = document.getElementById('notes-list');
-    notesList.innerHTML = '';
-    const notes = JSON.parse(localStorage.getItem('notes')) || [];
-    if (notes.length > 0) {
-        const notesTitle = document.createElement('label');
-        notesTitle.innerHTML = 'Anotações';
-        notesTitle.classList.add('block', 'mb-2', 'text-lg', 'font-semibold');
-        notesList.appendChild(notesTitle);
-        notesList.classList.add('bordered-list');
-    } else {
-        notesList.classList.remove('bordered-list');
-    }
-    notes.forEach((note, index) => {
-        const li = document.createElement('li');
-        li.classList.add('bordered-list', 'd-flex', 'justify-content-between', 'align-items-center');
-        li.innerHTML = `
-            <span class="note-text text-box">${note.title}</span>
-            <div class=" text-right">
-                <button class="mb-1 px-3 py-1 rounded" onclick="openNoteModal(${index})">Ver</button>
-                <button class="btn-danger mb-1 px-2 py-1" onclick="deleteNote(${index})">Deletar</button>
-            </div>
-        `;
-        notesList.appendChild(li);
-    });
-}
-
-document.getElementById('notes-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const noteTitle = document.getElementById('note-title').value;
-    let notes = JSON.parse(localStorage.getItem('notes')) || [];
-    notes.push({ title: noteTitle, subtopics: [] });
-    localStorage.setItem('notes', JSON.stringify(notes));
-    renderNotes();
-    document.getElementById('note-title').value = ''; // Clear the input
-});
-
-function addSubtopic() {
-    const subtopicText = document.getElementById('subtopic').value;
-    if (subtopicText.trim() === '') return;
-    const notes = JSON.parse(localStorage.getItem('notes')) || [];
-    if (currentNoteIndex !== null && notes[currentNoteIndex]) {
-        notes[currentNoteIndex].subtopics.push(subtopicText);
-        localStorage.setItem('notes', JSON.stringify(notes));
-        renderSubtopics(notes[currentNoteIndex].subtopics);
-        document.getElementById('subtopic').value = '';
-    } else {
-        console.error('Erro: currentNoteIndex ou notes[currentNoteIndex] não definido.');
-    }
-}
-
-function renderSubtopics(subtopics) {
-    const subtopicsList = document.getElementById('subtopics-list');
-    subtopicsList.innerHTML = '';
-    subtopics.forEach((subtopic, index) => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td class="subtopic">${subtopic.replace(/\n/g, '<br>')}</td>
-            <td class="text-right"><button class="btn-danger btn-sm mb-1 text-right" onclick="deleteSubtopic(${index})">Delete</button></td>
-        `;
-        subtopicsList.appendChild(tr);
-    });
-}
-
-let currentNoteIndex = null;
-
-function deleteNote(index) {
-    const notes = JSON.parse(localStorage.getItem('notes'));
-    notes.splice(index, 1);
-    localStorage.setItem('notes', JSON.stringify(notes));
-    renderNotes();
-}
-
-function deleteSubtopic(index) {
-    const notes = JSON.parse(localStorage.getItem('notes'));
-    notes[currentNoteIndex].subtopics.splice(index, 1);
-    localStorage.setItem('notes', JSON.stringify(notes));
-    renderSubtopics(notes[currentNoteIndex].subtopics);
 }
 
 function exportCharacter() {
@@ -328,6 +234,5 @@ function validateForm(formId) {
 // renderSpells();
 // Renderizar itens e magias ao carregar a página
 document.addEventListener('DOMContentLoaded', () => {
-    renderNotes();
     displayCharacter();
 });
