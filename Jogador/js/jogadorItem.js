@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const jogadorDocRef = doc(db, 'jogador', jogadorId);
             const personagemDocRef = doc(jogadorDocRef, 'personagem', personagemId);
             const subCollectionRef = collection(personagemDocRef, subCollectionName);
-            console.log();
+            
             // Verificar se o item já existe
             const q = query(subCollectionRef, where('nome', '==', data.nome));
             const querySnapshot = await getDocs(q);
