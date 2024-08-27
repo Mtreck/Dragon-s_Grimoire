@@ -1,23 +1,23 @@
 import { db, collection, getDocs, deleteDoc, addDoc, doc, query, where } from '../../bd.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-    const searchInput = document.getElementById('search-spell');
-    const magiasContainer = document.getElementById('spell-cards-container');
-    const jogadorId = 'PTYlBypR3uej9RzN18pm'; // Substitua pelo ID real do jogador
-    const personagemId = 'HCIlBRPaLuogGHYYGupZ'; // Substitua pelo ID real do personagem
 
-    // Função para exibir as magias no HTML (Modal de magias)
-    async function displayMagias() {
-        try {
-            const querySnapshot = await getDocs(collection(db, 'magias'));
-            magiasContainer.innerHTML = ''; // Limpar o container antes de exibir novas magias
+const searchInput = document.getElementById('search-spell');
+const magiasContainer = document.getElementById('spell-cards-container');
+const jogadorId = 'PTYlBypR3uej9RzN18pm'; // Substitua pelo ID real do jogador
+const personagemId = 'HCIlBRPaLuogGHYYGupZ'; // Substitua pelo ID real do personagem
 
-            querySnapshot.forEach((docSnapshot) => {
-                const magia = docSnapshot.data();
-                const spellCard = document.createElement('div');
-                spellCard.classList.add('spell-card');
+// Função para exibir as magias no HTML (Modal de magias)
+async function displayMagias() {
+    try {
+        const querySnapshot = await getDocs(collection(db, 'magias'));
+        magiasContainer.innerHTML = ''; // Limpar o container antes de exibir novas magias
 
-                spellCard.innerHTML = `
+        querySnapshot.forEach((docSnapshot) => {
+            const magia = docSnapshot.data();
+            const spellCard = document.createElement('div');
+            spellCard.classList.add('spell-card');
+
+            spellCard.innerHTML = `
                     <h3>${magia.nome}</h3>
                     <p><strong>Nível:</strong> ${magia.nivel}</p>
                     <p><strong>Escola:</strong> ${magia.Escola}</p>
@@ -28,69 +28,69 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p><strong>Descrição:</strong> ${magia.descricao}</p>
                     <div class="text-right"><button type="button" class="add-spell-btn">Adicionar Magia</button></div>
           `;
-                magiasContainer.appendChild(spellCard);
+            magiasContainer.appendChild(spellCard);
 
-                // Adicionar event listener para o botão "Adicionar Magia"
-                const addSpellButton = spellCard.querySelector('.add-spell-btn');
-                addSpellButton.addEventListener('click', async () => {
-                    const spellData = {
-                        nome: magia.nome,
-                        nivel: magia.nivel,
-                        escola: magia.Escola,
-                        tempo_conjuracao: magia.tempo_conjuracao,
-                        alcance: magia.alcance,
-                        componentes: magia.componentes,
-                        duracao: magia.duracao,
-                        descricao: magia.descricao
-                    };
-                    await saveDataToSubCollection(spellData);
-                });
+            // Adicionar event listener para o botão "Adicionar Magia"
+            const addSpellButton = spellCard.querySelector('.add-spell-btn');
+            addSpellButton.addEventListener('click', async () => {
+                const spellData = {
+                    nome: magia.nome,
+                    nivel: magia.nivel,
+                    escola: magia.Escola,
+                    tempo_conjuracao: magia.tempo_conjuracao,
+                    alcance: magia.alcance,
+                    componentes: magia.componentes,
+                    duracao: magia.duracao,
+                    descricao: magia.descricao
+                };
+                await saveDataToSubCollection(spellData);
             });
+        });
 
-            aplicarFiltrosEMagia(); // Aplicar filtros e pesquisa após carregar as magias
-        } catch (error) {
-            console.error('Erro ao buscar magias: ', error);
-        }
+        aplicarFiltrosEMagia(); // Aplicar filtros e pesquisa após carregar as magias
+    } catch (error) {
+        console.error('Erro ao buscar magias: ', error);
     }
+}
 
-    async function saveDataToSubCollection(data) {
-        try {
-            const jogadorDocRef = doc(db, 'jogador', jogadorId);
-            const personagemDocRef = doc(jogadorDocRef, 'personagem', personagemId);
-            const subCollectionRef = collection(personagemDocRef, 'magias');
+async function saveDataToSubCollection(data) {
+    try {
+        const jogadorDocRef = doc(db, 'jogador', jogadorId);
+        const personagemDocRef = doc(jogadorDocRef, 'personagem', personagemId);
+        const subCollectionRef = collection(personagemDocRef, 'magias');
 
-            // Verificar se a magia já existe
-            const q = query(subCollectionRef, where('nome', '==', data.nome));
-            const querySnapshot = await getDocs(q);
+        // Verificar se a magia já existe
+        const q = query(subCollectionRef, where('nome', '==', data.nome));
+        const querySnapshot = await getDocs(q);
 
-            if (!querySnapshot.empty) {
-                console.log('A magia já existe na sub-coleção.');
-                return; // Magia já existe, não adicionar novamente
-            }
-            const docRef = await addDoc(subCollectionRef, data);
-
-            console.log(`Dados salvos com sucesso na sub-coleção ${subCollectionName}:`, docRef.id);
-            renderSpells();
-        } catch (error) {
-            console.error('Erro ao salvar dados na sub-coleção:', error);
+        if (!querySnapshot.empty) {
+            console.log('A magia já existe na sub-coleção.');
+            return; // Magia já existe, não adicionar novamente
         }
+        const docRef = await addDoc(subCollectionRef, data);
+
+        console.log(`Dados salvos com sucesso na sub-coleção ${subCollectionName}:`, docRef.id);
+        renderSpells();
+    } catch (error) {
+        console.error('Erro ao salvar dados na sub-coleção:', error);
     }
+}
 
-    async function renderSpells() {
-        const spellsList = document.getElementById('spells-list');
-        try {
-            const jogadorDocRef = doc(db, 'jogador', jogadorId);
-            const personagemDocRef = doc(jogadorDocRef, 'personagem', personagemId);
-            const subCollectionRef = collection(personagemDocRef, 'magias');
-            const querySnapshot = await getDocs(subCollectionRef);
-            spellsList.innerHTML = ''; // Limpar a lista antes de exibir as magias
+async function renderSpells() {
+    const spellsList = document.getElementById('spells-list');
+    try {
+        const jogadorDocRef = doc(db, 'jogador', jogadorId);
+        const personagemDocRef = doc(jogadorDocRef, 'personagem', personagemId);
+        const subCollectionRef = collection(personagemDocRef, 'magias');
+        const querySnapshot = await getDocs(subCollectionRef);
+        spellsList.innerHTML = ''; // Limpar a lista antes de exibir as magias
 
-            querySnapshot.forEach((docSnapshot) => {
-                const magia = docSnapshot.data();
-                magia.id = docSnapshot.id; // Capturar o ID do documento
-                const listItem = document.createElement('div');
-                listItem.classList.add('spell-list-card');
-                listItem.innerHTML = `
+        querySnapshot.forEach((docSnapshot) => {
+            const magia = docSnapshot.data();
+            magia.id = docSnapshot.id; // Capturar o ID do documento
+            const listItem = document.createElement('div');
+            listItem.classList.add('spell-list-card');
+            listItem.innerHTML = `
                 <h4>${magia.nome}</h4>
                 <p><strong>Magia de ${magia.escola} do ${magia.nivel}º círculo</strong></p>
                 <div class="text-right">
@@ -98,29 +98,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     <button type="button" class="btn-danger px-2 py-1 rounded delete-spell-btn">Excluir</button>
                 <\div>
             `;
-                spellsList.appendChild(listItem);
+            spellsList.appendChild(listItem);
 
-                // Adicionar event listener para o botão "Ver Detalhes"
-                const viewSpellButton = listItem.querySelector('.view-spell-btn');
-                viewSpellButton.addEventListener('click', () => {
-                    openSpellModal(magia);
-                });
-                // Adicionar event listener para o botão "Excluir"
-                const deleteSpellButton = listItem.querySelector('.delete-spell-btn');
-                deleteSpellButton.addEventListener('click', () => {
-                    deleteSpell(magia.id);
-                });
+            // Adicionar event listener para o botão "Ver Detalhes"
+            const viewSpellButton = listItem.querySelector('.view-spell-btn');
+            viewSpellButton.addEventListener('click', () => {
+                openSpellModal(magia);
             });
-        } catch (error) {
-            console.error('Erro ao buscar magias salvas: ', error);
-        }
+            // Adicionar event listener para o botão "Excluir"
+            const deleteSpellButton = listItem.querySelector('.delete-spell-btn');
+            deleteSpellButton.addEventListener('click', () => {
+                deleteSpell(magia.id);
+            });
+        });
+    } catch (error) {
+        console.error('Erro ao buscar magias salvas: ', error);
     }
+}
 
-    function openSpellModal(magia) {
-        const spellModal = document.getElementById('all-spell-modal');
-        const spellListInfo = document.getElementById('spell-list-info');
+function openSpellModal(magia) {
+    const spellModal = document.getElementById('all-spell-modal');
+    const spellListInfo = document.getElementById('spell-list-info');
 
-        spellListInfo.innerHTML = `
+    spellListInfo.innerHTML = `
             <div class="container mb-3">
                 <h1>${magia.nome}</h1>
                 <button class="btn-danger px-3 py-1 rounded close-spell-modal-btn">&times;</button>
@@ -135,53 +135,53 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="text-right"><button class="btn-danger px-3 py-1 rounded close-spell-modal-btn">&times;</button></div>
         `;
 
-        // Mostrar o modal
-        spellModal.style.display = 'flex';
+    // Mostrar o modal
+    spellModal.style.display = 'flex';
 
-        // Adicionar event listener para o botão "Fechar"
-        const closeSpellModalButtons = spellListInfo.querySelectorAll('.close-spell-modal-btn');
-        closeSpellModalButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                spellModal.style.display = 'none';
-            });
+    // Adicionar event listener para o botão "Fechar"
+    const closeSpellModalButtons = spellListInfo.querySelectorAll('.close-spell-modal-btn');
+    closeSpellModalButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            spellModal.style.display = 'none';
         });
-    }
-    // Função para apagar a magia
-    async function deleteSpell(spellId) {
-        try {
-            const jogadorDocRef = doc(db, 'jogador', jogadorId);
-            const personagemDocRef = doc(jogadorDocRef, 'personagem', personagemId);
-            const spellDocRef = doc(personagemDocRef, 'magias', spellId);
+    });
+}
+// Função para apagar a magia
+async function deleteSpell(spellId) {
+    try {
+        const jogadorDocRef = doc(db, 'jogador', jogadorId);
+        const personagemDocRef = doc(jogadorDocRef, 'personagem', personagemId);
+        const spellDocRef = doc(personagemDocRef, 'magias', spellId);
 
-            await deleteDoc(spellDocRef);
-            console.log('Magia excluída com sucesso:', spellId);
-            renderSpells(); // Atualizar a lista de magias após a exclusão
-        } catch (error) {
-            console.error('Erro ao excluir a magia:', error);
+        await deleteDoc(spellDocRef);
+        console.log('Magia excluída com sucesso:', spellId);
+        renderSpells(); // Atualizar a lista de magias após a exclusão
+    } catch (error) {
+        console.error('Erro ao excluir a magia:', error);
+    }
+}
+
+// Função para aplicar os filtros e pesquisa
+function aplicarFiltrosEMagia() {
+    const searchTerm = searchInput.value.toLowerCase();
+    const allSpellCards = magiasContainer.getElementsByClassName('spell-card');
+
+    Array.from(allSpellCards).forEach(card => {
+        const magiaNome = card.querySelector('h3').textContent.toLowerCase();
+
+        let isVisible = true;
+
+        if (searchTerm && !magiaNome.includes(searchTerm)) {
+            isVisible = false;
         }
-    }
 
-    // Função para aplicar os filtros e pesquisa
-    function aplicarFiltrosEMagia() {
-        const searchTerm = searchInput.value.toLowerCase();
-        const allSpellCards = magiasContainer.getElementsByClassName('spell-card');
+        card.style.display = isVisible ? '' : 'none';
+    });
+}
 
-        Array.from(allSpellCards).forEach(card => {
-            const magiaNome = card.querySelector('h3').textContent.toLowerCase();
-
-            let isVisible = true;
-
-            if (searchTerm && !magiaNome.includes(searchTerm)) {
-                isVisible = false;
-            }
-
-            card.style.display = isVisible ? '' : 'none';
-        });
-    }
-
-    // Adicionar eventos de filtro e pesquisa
-    searchInput.addEventListener('input', aplicarFiltrosEMagia);
-
+// Adicionar eventos de filtro e pesquisa
+searchInput.addEventListener('input', aplicarFiltrosEMagia);
+document.addEventListener('DOMContentLoaded', () => {
     // Exibir todas as magias ao carregar a página
     displayMagias();
     renderSpells();
