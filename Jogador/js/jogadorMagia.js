@@ -55,9 +55,7 @@ async function displayMagias() {
 
 async function saveDataToSubCollection(data) {
     try {
-        const jogadorDocRef = doc(db, 'jogador', jogadorId);
-        const personagemDocRef = doc(jogadorDocRef, 'personagem', personagemId);
-        const subCollectionRef = collection(personagemDocRef, 'magias');
+        const subCollectionRef = collection(db, 'jogador', jogadorId, 'personagem', personagemId, 'magias');
 
         // Verificar se a magia já existe
         const q = query(subCollectionRef, where('nome', '==', data.nome));
@@ -69,7 +67,7 @@ async function saveDataToSubCollection(data) {
         }
         const docRef = await addDoc(subCollectionRef, data);
 
-        console.log(`Dados salvos com sucesso na sub-coleção ${subCollectionName}:`, docRef.id);
+        console.log(`Dados salvos com sucesso na sub-coleção ${subCollectionRef}:`, docRef.id);
         renderSpells();
     } catch (error) {
         console.error('Erro ao salvar dados na sub-coleção:', error);
@@ -85,9 +83,17 @@ async function renderSpells() {
         const querySnapshot = await getDocs(subCollectionRef);
         spellsList.innerHTML = ''; // Limpar a lista antes de exibir as magias
 
+        const magias = [];
         querySnapshot.forEach((docSnapshot) => {
             const magia = docSnapshot.data();
             magia.id = docSnapshot.id; // Capturar o ID do documento
+            magias.push(magia);
+        });
+
+        // Ordenar as magias por nível de forma decrescente
+        magias.sort((a, b) => b.nivel - a.nivel);
+
+        magias.forEach((magia) => {
             const listItem = document.createElement('div');
             listItem.classList.add('spell-list-card');
             listItem.innerHTML = `

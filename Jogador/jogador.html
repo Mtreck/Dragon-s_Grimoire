@@ -26,11 +26,11 @@
             <h2 class="text-xl font-semibold mb-4">Detalhes do Personagem
                 <button class="btn-min-max" onclick="toggleSection('character-sheet')">-</button>
             </h2>
-            <div class="text-center">
-                <button class="px-4 py-2 rounded mb-4" onclick="openModal('character-modal')">Editar
-                    Informações</button>
-            </div>
             <div id="character-details"></div>
+            <div class="text-center">
+                <button class="px-4 py-2 rounded mt-2" onclick="openModal('character-modal')">Editar Personagem</button>
+            </div>
+            
         </section>
 
         <!-- SECTION DE ANOTAÇÕES -->
@@ -39,7 +39,7 @@
                 <button class="btn-min-max" onclick="toggleSection('notes-section')">-</button>
             </h2>
             <form id="notes-form">
-                <div class="mb-4">
+                <div class="mb-2">
                     <label class="block mb-1" for="note-title">Título da Anotação</label>
                     <input class="w-full p-2 border rounded" type="text" id="note-title"
                         placeholder="Título da anotação" required>
@@ -94,7 +94,7 @@
         <div class="modal-content">
             <!-- Conteúdo do Modal -->
             <h3 class="text-lg leading-6 font-medium" id="character-modal">Informação do Personagem</h3>
-            <form id="character-form-modal">
+            <form id="character-form-modal create-character">
                 <div class="">
                     <label class="block mb-1" for="name-modal">Nome</label>
                     <input class="w-full p-2 border rounded" type="text" id="name-modal" required>
@@ -279,11 +279,11 @@
         </div>
     </div>
 
-    <script src="js/jogador.js"></script>
+    <script type="module" src="/Jogador/js/modal.js"></script>
     <script type="module" src="/Jogador/js/jogadorItem.js"></script>
     <script type="module" src="/Jogador/js/jogadorMagia.js"></script>
     <script type="module" src="/Jogador/js/jogadorNotas.js"></script>
-    <!-- <script type="module" src="/Mestre/js/magias.js"></script> -->
+    <script type="module" src="/Jogador/js/jogadorFicha.js"></script>
 
     <!-- Link do script do Bootstrap5 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

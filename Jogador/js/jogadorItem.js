@@ -67,18 +67,16 @@ function displayItems(items) {
                     origem: items.Origem,
                     quantidade: 1
                 };
-                await saveItemToSubCollection('item', itemData);
+                await saveItemToSubCollection(itemData);
                 renderItems();
             });
         });
     }
 }
 
-async function saveItemToSubCollection(subCollectionName, data) {
+async function saveItemToSubCollection(data) {
     try {
-        const jogadorDocRef = doc(db, 'jogador', jogadorId);
-        const personagemDocRef = doc(jogadorDocRef, 'personagem', personagemId);
-        const subCollectionRef = collection(personagemDocRef, subCollectionName);
+        const subCollectionRef = collection(db, 'jogador', jogadorId,'personagem', personagemId, 'item');
 
         // Verificar se o item já existe
         const q = query(subCollectionRef, where('nome', '==', data.nome));
@@ -91,7 +89,7 @@ async function saveItemToSubCollection(subCollectionName, data) {
 
         // Adicionar um novo documento à sub-coleção com os dados fornecidos
         const docRef = await addDoc(subCollectionRef, data);
-        console.log(`Dados salvos com sucesso na sub-coleção ${subCollectionName}:`, docRef.id);
+        console.log(`Dados salvos com sucesso na sub-coleção de itens:`, docRef.id);
         alert('Item adicionado com sucesso!');
     } catch (error) {
         console.error('Erro ao salvar dados na sub-coleção:', error);

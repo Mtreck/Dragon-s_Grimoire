@@ -1,4 +1,5 @@
 import { db, collection, doc, getDocs, getDoc, addDoc, updateDoc, deleteDoc } from '../../bd.js';
+import { closeModal, openModal } from './modal.js';
 
 const jogadorId = 'PTYlBypR3uej9RzN18pm'; // Substitua pelo ID real do jogador
 const personagemId = 'HCIlBRPaLuogGHYYGupZ'; // Substitua pelo ID real do personagem
@@ -88,23 +89,17 @@ async function deleteNote(noteId) {
 // Função para abrir o modal de edição de nota
 async function openNoteModal(noteId) {
     currentNoteId = noteId;
-    const personagemDocRef = doc(db, 'jogador', jogadorId, 'personagem', personagemId);
-    const noteDocRef = doc(personagemDocRef, 'anotacoes', noteId);
+    const noteDocRef = doc(db, 'jogador', jogadorId, 'personagem', personagemId, 'anotacoes', noteId);
 
     try {
         const noteSnapshot = await getDoc(noteDocRef); // Buscar o documento específico
         if (noteSnapshot.exists()) {
             const note = noteSnapshot.data();
             document.getElementById('edit-note-title').value = note.titulo;
-            loadSubtopics(noteId);
-            document.getElementById('note-modal').classList.add('show');
-            document.getElementById('note-modal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-
+            await loadSubtopics(noteId);
+            openModal('note-modal');
             document.getElementById('close-note').onclick = function () {
-                document.getElementById('note-modal').classList.add('hidden');
-                document.getElementById('note-modal').classList.remove('show');
-                document.body.style.overflow = '';
+                closeModal('note-modal');
             };
         } else {
             console.error('A nota não foi encontrada');
@@ -116,9 +111,7 @@ async function openNoteModal(noteId) {
 
 // Função para carregar os subtópicos do Firestore
 async function loadSubtopics(noteId) {
-    const subtopicsList = document.getElementById('subtopics-list');
-    const personagemDocRef = doc(db, 'jogador', jogadorId, 'personagem', personagemId);
-    const subtopicsCollectionRef = collection(personagemDocRef, 'anotacoes', noteId, 'topicos');
+    const subtopicsCollectionRef = collection(db, 'jogador', jogadorId, 'personagem', personagemId, 'anotacoes', noteId, 'topicos');
     const querySnapshot = await getDocs(subtopicsCollectionRef);
 
     const subtopics = [];
