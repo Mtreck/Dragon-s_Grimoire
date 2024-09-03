@@ -71,6 +71,23 @@ h3 {
     background-color: #1a1a1a11;
 }
 
+.grid-container-proficiencies {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    border: 1px solid white;
+    padding: 10px;
+}
+
+.proficiency-item {
+    display: flex;
+    align-items: center;
+    border: 1px solid white;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #1f1f1f;
+}
+
 section {
     background-color: #1a1a1acc;
     color: #ffffff;

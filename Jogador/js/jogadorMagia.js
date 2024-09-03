@@ -74,6 +74,7 @@ async function saveDataToSubCollection(data) {
     }
 }
 
+//Carrega as magias na pagina inicial do HTML
 async function renderSpells() {
     const spellsList = document.getElementById('spells-list');
     try {

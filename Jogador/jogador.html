@@ -23,14 +23,15 @@
 
         <!-- SECTION DA FICHA -->
         <section class="p-4 rounded shadow-md mb-6 text-box" id="character-sheet">
-            <h2 class="text-xl font-semibold mb-4">Detalhes do Personagem
+            <h2 class="text-xl font-semibold mb-4">
+                <strong>Detalhes do Personagem</strong>
                 <button class="btn-min-max" onclick="toggleSection('character-sheet')">-</button>
             </h2>
             <div id="character-details"></div>
             <div class="text-center">
                 <button class="px-4 py-2 rounded mt-2" onclick="openModal('character-modal')">Editar Personagem</button>
             </div>
-            
+
         </section>
 
         <!-- SECTION DE ANOTAÇÕES -->
@@ -135,6 +136,7 @@
                     <label class="block mb-1" for="hit-points-modal">Pontos de Vitalidade (PV)</label>
                     <input class="w-full p-2 border rounded" type="number" id="hit-points-modal" required>
                 </div>
+                <h3 class="mt-4 mb-2">Atributos</h3>
                 <div class="">
                     <label class="block mb-1" for="strength-modal">Força</label>
                     <input class="w-full p-2 border rounded" type="number" id="strength-modal" required>
@@ -158,6 +160,30 @@
                 <div class="">
                     <label class="block mb-1" for="charisma-modal">Carisma</label>
                     <input class="w-full p-2 border rounded" type="number" id="charisma-modal" required>
+                </div>
+                <h3 class="mt-4">Proficiências</h3>
+                <div class="mb-4">
+                    <h3>Proficiências</h3>
+                    <div class="grid-container-proficiencies">
+                        <label class="proficiency-item text-center"><input type="checkbox" id="acrobatics-proficiency"> Acrobacia (Des)</label>
+                        <label class="proficiency-item text-center"><input type="checkbox" id="animal-handling-proficiency"> Adestrar Animais (Sab)</label>
+                        <label class="proficiency-item text-center"><input type="checkbox" id="arcana-proficiency"> Arcanismo (Int)</label>
+                        <label class="proficiency-item text-center"><input type="checkbox" id="athletics-proficiency"> Atletismo (For)</label>
+                        <label class="proficiency-item text-center"><input type="checkbox" id="deception-proficiency"> Enganação (Car)</label>
+                        <label class="proficiency-item text-center"><input type="checkbox" id="history-proficiency"> História (Int)</label>
+                        <label class="proficiency-item text-center"><input type="checkbox" id="insight-proficiency"> Intuição (Sab)</label>
+                        <label class="proficiency-item text-center"><input type="checkbox" id="intimidation-proficiency"> Intimidação (Car)</label>
+                        <label class="proficiency-item text-center"><input type="checkbox" id="investigation-proficiency"> Investigação (Int)</label>
+                        <label class="proficiency-item text-center"><input type="checkbox" id="medicine-proficiency"> Medicina (Sab)</label>
+                        <label class="proficiency-item text-center"><input type="checkbox" id="nature-proficiency"> Natureza (Int)</label>
+                        <label class="proficiency-item text-center"><input type="checkbox" id="perception-proficiency"> Percepção (Sab)</label>
+                        <label class="proficiency-item text-center"><input type="checkbox" id="performance-proficiency"> Atuação (Car)</label>
+                        <label class="proficiency-item text-center"><input type="checkbox" id="persuasion-proficiency"> Persuasão (Car)</label>
+                        <label class="proficiency-item text-center"><input type="checkbox" id="religion-proficiency"> Religião (Int)</label>
+                        <label class="proficiency-item text-center"><input type="checkbox" id="sleight-of-hand-proficiency"> Prestidigitação (Des)</label>
+                        <label class="proficiency-item text-center"><input type="checkbox" id="stealth-proficiency"> Furtividade (Des)</label>
+                        <label class="proficiency-item text-center"><input type="checkbox" id="survival-proficiency"> Sobrevivência (Sab)</label>
+                    </div>
                 </div>
                 <div class="">
                     <label class="block mb-1" for="abilities-modal">Habilidades</label>
@@ -241,8 +267,7 @@
     </div>
 
     <!-- MODAL PARA DESCRIÇÃO COMPLETA DA MAGIA -->
-    <div id="all-spell-modal" class="modal" aria-labelledby="descricao-modal" role="dialog"
-        aria-modal="true">
+    <div id="all-spell-modal" class="modal" aria-labelledby="descricao-modal" role="dialog" aria-modal="true">
         <div class="modal-content">
             <div id="spell-list-info"></div>
             <!-- <button id="close-spell-modal" class="btn-danger px-1 py-1 rounded" onclick="closeModal('all-spell-modal')">Fechar</button> -->
@@ -259,7 +284,7 @@
             </div>
             <div class="mt-2">
                 <label class="block mb-1" for="subtopic">Subtópico</label>
-                <textarea class="w-full p-2 border rounded" id="subtopic" rows="3"></textarea>
+                <textarea class="w-full p-2 border rounded" id="subtopic" rows="3" required></textarea>
             </div>
             <button class="px-4 py-2 rounded mt-2" id="add-subtopic-btn">Adicionar Subtópico</button>
             <table class="mt-4 w-full">

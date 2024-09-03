@@ -1,5 +1,4 @@
 import { db, collection, doc, getDocs, getDoc, addDoc, updateDoc, deleteDoc } from '../../bd.js';
-import { closeModal, openModal } from './modal.js';
 
 const jogadorId = 'PTYlBypR3uej9RzN18pm'; // Substitua pelo ID real do jogador
 const personagemId = 'HCIlBRPaLuogGHYYGupZ'; // Substitua pelo ID real do personagem
@@ -13,8 +12,7 @@ let currentNoteId = null;
 // Função para carregar as notas do Firestore
 async function loadNotes() {
     try {
-        const personagemDocRef = doc(db, 'jogador', jogadorId, 'personagem', personagemId);
-        const notesCollectionRef = collection(personagemDocRef, 'anotacoes');
+        const notesCollectionRef = collection(db, 'jogador', jogadorId, 'personagem', personagemId, 'anotacoes');
         const querySnapshot = await getDocs(notesCollectionRef);
 
         const notes = [];
@@ -23,7 +21,8 @@ async function loadNotes() {
             note.id = docSnapshot.id; // Captura o ID do documento
             notes.push(note);
         });
-
+        // Ordena os tópicos pelo timestamp de criação antes de mostrar na tela
+        notes.sort((a, b) => a.order.seconds - b.order.seconds);
         renderNotes(notes);
     } catch (error) {
         console.error('Erro ao buscar notas: ', error);
@@ -59,11 +58,11 @@ function renderNotes(notes) {
 // Função para adicionar uma nova nota ao Firestore
 async function addNote(noteTitle) {
     try {
-        const personagemDocRef = doc(db, 'jogador', jogadorId, 'personagem', personagemId);
-        const notesCollectionRef = collection(personagemDocRef, 'anotacoes');
+        const notesCollectionRef = collection(db, 'jogador', jogadorId, 'personagem', personagemId, 'anotacoes');
 
         const newNote = {
-            titulo: noteTitle
+            titulo: noteTitle,
+            order: new Date()
         };
         const docRef = await addDoc(notesCollectionRef, newNote);
         console.log(`Nota adicionada com sucesso:`, docRef.id);
@@ -76,9 +75,18 @@ async function addNote(noteTitle) {
 // Função para deletar uma nota do Firestore
 async function deleteNote(noteId) {
     try {
+        // Referência à coleção de subtópicos da nota
+        const subtopicsCollectionRef = collection(db, 'jogador', jogadorId, 'personagem', personagemId, 'anotacoes', noteId, 'topicos');
+        
+        // Deletar todos os subtópicos associados à nota
+        const querySnapshot = await getDocs(subtopicsCollectionRef);
+        const deleteSubtopicsPromises = querySnapshot.docs.map((doc) => deleteDoc(doc.ref));
+        await Promise.all(deleteSubtopicsPromises);
+        
+        // Agora deletar a nota em si
         const noteDocRef = doc(db, 'jogador', jogadorId, 'personagem', personagemId, 'anotacoes', noteId);
-
         await deleteDoc(noteDocRef);
+        
         console.log('Nota excluída com sucesso:', noteId);
         loadNotes(); // Recarregar as notas após deletar
     } catch (error) {
@@ -100,6 +108,7 @@ async function openNoteModal(noteId) {
             openModal('note-modal');
             document.getElementById('close-note').onclick = function () {
                 closeModal('note-modal');
+                document.innerHTML = '';
             };
         } else {
             console.error('A nota não foi encontrada');
@@ -136,6 +145,9 @@ function renderSubtopics(subtopics) {
                     <button class="btn-danger btn-sm mb-1" onclick="deleteSubtopic('${subtopic.id}')">Excluir</button>
                 </td>
             `;
+
+        // Ordena os subtópicos pelo timestamp de criação antes de mostrar na tela
+        subtopics.sort((a, b) => a.order.seconds - b.order.seconds);
         subtopicsList.appendChild(tr);
     });
 }
@@ -146,11 +158,11 @@ async function addSubtopic() {
     const description = subtopicInput.value;
     if (!currentNoteId) return;
     try {
-        const personagemDocRef = doc(db, 'jogador', jogadorId, 'personagem', personagemId);
-        const subtopicsCollectionRef = collection(personagemDocRef, 'anotacoes', currentNoteId, 'topicos');
+        const subtopicsCollectionRef = collection(db, 'jogador', jogadorId, 'personagem', personagemId, 'anotacoes', currentNoteId, 'topicos');
 
         const newSubtopic = {
-            descricao: description
+            descricao: description,
+            order: new Date()
         };
         await addDoc(subtopicsCollectionRef, newSubtopic);
         console.log('Subtópico adicionado com sucesso!');
