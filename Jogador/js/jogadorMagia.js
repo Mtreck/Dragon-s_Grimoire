@@ -20,7 +20,7 @@ async function displayMagias() {
             spellCard.innerHTML = `
                     <h3>${magia.nome}</h3>
                     <p><strong>Nível:</strong> ${magia.nivel}</p>
-                    <p><strong>Escola:</strong> ${magia.Escola}</p>
+                    <p><strong>Escola:</strong> ${magia.escola}</p>
                     <p><strong>Tempo de Conjuração:</strong> ${magia.tempo_conjuracao}</p>
                     <p><strong>Alcance:</strong> ${magia.alcance} metros</p>
                     <p><strong>Componentes:</strong> ${magia.componentes}</p>
@@ -36,7 +36,7 @@ async function displayMagias() {
                 const spellData = {
                     nome: magia.nome,
                     nivel: magia.nivel,
-                    escola: magia.Escola,
+                    escola: magia.escola,
                     tempo_conjuracao: magia.tempo_conjuracao,
                     alcance: magia.alcance,
                     componentes: magia.componentes,
