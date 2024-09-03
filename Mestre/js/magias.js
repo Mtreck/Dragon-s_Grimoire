@@ -138,7 +138,7 @@ function createModal() {
             const docRef = await addDoc(collection(db, 'magias'), {
                 nome: spellName,
                 nivel: spellLevel,
-                Escola:spellSchool,
+                escola:spellSchool,
                 tempo_conjuracao: spellCastingTime,
                 alcance: spellRange,
                 componentes: spellComponents,
@@ -178,7 +178,7 @@ async function exibirMagias() {
             spellCard.innerHTML = `
                 <h3>${magia.nome}</h3>
                 <p><strong>Nível:</strong> ${magia.nivel}</p>
-                <p><strong>Escola:</strong> ${magia.Escola}</p>
+                <p><strong>Escola:</strong> ${magia.escola}</p>
                 <p><strong>Alcance:</strong> ${magia.alcance} metros</p>
                 <p><strong>Componentes:</strong> ${magia.componentes}</p>
                 <p><strong>Duração:</strong> ${magia.duracao}</p>
