@@ -6,6 +6,33 @@ const levelFilter = document.getElementById('level-filter');
 const addSpellButton = document.getElementById('add-spell-button');
 const magiasContainer = document.getElementById('conteiner_magias');
 
+//Função para carregar e adicionar magias do JSON ao Firebase
+// async function carregarMagiasDoJSON() {
+//     try {
+//         const response = await fetch('../spells-final.json');
+//         const data = await response.json();
+
+//         // Acessando o array de magias
+//         const magias = data.magias;
+
+//        // Referência à coleção 'magias' no Firestore
+//        const magiasCollectionRef = collection(db, 'magias');
+
+//        // Itera sobre as magias e as adiciona ao Firestore
+//        magias.forEach(async (magia) => {
+//            try {
+//                const docRef = await addDoc(magiasCollectionRef, magia);
+//                console.log(`Magia ${magia.nome} adicionada com sucesso com ID: ${docRef.id}`);
+//            } catch (error) {
+//                console.error("Erro ao adicionar magia ao Firestore:", error);
+//            }
+//        });
+//    } catch (error) {
+//        console.error("Erro ao carregar magias do JSON:", error);
+//    }
+// }
+// carregarMagiasDoJSON();
+
 // Função para criar o modal de cadastro de magia
 function createModal() {
     // Criando elementos do modal
