@@ -91,6 +91,24 @@ export async function loadCharacterDataToModal() {
             document.getElementById('abilities-modal').value = character.abilities;
             document.getElementById('background-modal').value = character.background;
             document.getElementById('traits-modal').value = character.traits;
+            document.getElementById('acrobatics-proficiency').checked = character.proficiencies.acrobatics;
+            document.getElementById('animal-handling-proficiency').checked = character.proficiencies.animalHandling;
+            document.getElementById('arcana-proficiency').checked = character.proficiencies.arcana;
+            document.getElementById('athletics-proficiency').checked = character.proficiencies.athletics;
+            document.getElementById('deception-proficiency').checked = character.proficiencies.deception;
+            document.getElementById('history-proficiency').checked = character.proficiencies.history;
+            document.getElementById('insight-proficiency').checked = character.proficiencies.insight;
+            document.getElementById('intimidation-proficiency').checked = character.proficiencies.intimidation;
+            document.getElementById('investigation-proficiency').checked = character.proficiencies.investigation;
+            document.getElementById('medicine-proficiency').checked = character.proficiencies.medicine;
+            document.getElementById('nature-proficiency').checked = character.proficiencies.nature;
+            document.getElementById('perception-proficiency').checked = character.proficiencies.perception;
+            document.getElementById('performance-proficiency').checked = character.proficiencies.performance;
+            document.getElementById('persuasion-proficiency').checked = character.proficiencies.persuasion;
+            document.getElementById('religion-proficiency').checked = character.proficiencies.religion;
+            document.getElementById('sleight-of-hand-proficiency').checked = character.proficiencies.sleightOfHand;
+            document.getElementById('stealth-proficiency').checked = character.proficiencies.stealth;
+            document.getElementById('survival-proficiency').checked = character.proficiencies.survival;
 
         } else {
             console.log("Ainda não foram atribuidos dados ao personagem para serem mostrados.");
