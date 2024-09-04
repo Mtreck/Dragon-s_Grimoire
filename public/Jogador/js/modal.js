@@ -2,7 +2,7 @@ import {loadCharacterDataToModal} from './jogadorFicha.js'
 
 export async function openModal(modalId) {
     if (modalId == 'character-modal'){
-        await loadCharacterDataToModal();
+        loadCharacterDataToModal();
     }
     document.getElementById(modalId).classList.add('show');
     document.getElementById(modalId).classList.remove('hidden');
