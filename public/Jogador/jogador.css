@@ -1,31 +1,4 @@
-body {
-    background-image: url(../img/jogadores.jpg);
-    font-family: Arial, sans-serif;
-    background-size: cover;
-    background-position: 35%;
-}
-
-header {
-    position: relative;
-}
-
-.logo-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 25px;
-}
-
-.logo-container img {
-    width: 170px;
-}
-
-.logo-container h1 {
-    font-size: 30px;
-    color: #80e5c8;
-    text-shadow: 2px 2px 3px #1a1a1a;
-}
-
+/* Estilos para o botão de logout/voltar */
 .back-button {
     position: absolute;
     padding: 0% 2%;
@@ -36,275 +9,75 @@ header {
     text-decoration: none;
     background-color: #1a1a1acc;
     font-weight: bold;
+    margin: 1.5vh;
 }
 
 .back-button:hover {
     color: #64c8aa;
 }
 
-h1,
-h3 {
-    width: fit-content;
-}
-
-.container {
-    max-width: 100%;
-    padding: 0;
-    margin: 0%;
+/* Estilos globais, títulos e outros elementos */
+body {
+    font-family: Arial, sans-serif;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
-}
-
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-auto-flow: dense;
-    gap: 1rem;
-}
-
-.bordered-list {
-    border-style: solid;
-    border-width: 1px;
-    padding: 5px;
-    border-color: white;
-    background-color: #1a1a1a11;
-}
-
-.grid-container-proficiencies {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 10px;
-    border: 1px solid white;
-    padding: 10px;
-}
-
-.proficiency-item {
-    display: flex;
-    align-items: center;
-    border: 1px solid white;
-    padding: 5px;
-    border-radius: 5px;
-    background-color: #1f1f1f;
-}
-
-section {
-    background-color: #1a1a1acc;
+    height: 100vh;
+    margin: 0;
+    background-image: url('../img/jogadores.jpg');
+    background-size: cover;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.6); /* Fallback para o background */
     color: #ffffff;
-    padding: 1.5rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin-bottom: 1.5rem;
 }
 
-section h2 {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* Título */
+h1 {
+    color: #80e5c8;
+    text-shadow: 2px 2px 3px #1a1a1a;
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
+/* Grade de personagens */
+#character-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    width: 90%;
+    max-width: 1000px;
+    padding: 1rem;
+    background-color: #1a1a1acc;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Botão para criar novo personagem */
 button {
     background-color: #5ead97;
     color: #ffffff;
     border: none;
-    padding: 0.25rem 0.25rem;
-    border-radius: 0.50rem;
-    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
     font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem;
 }
 
 button:hover {
-    background-color: rgb(128, 229, 200);
+    background-color: #64c8aa;
 }
 
-input,
-textarea,
-select {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #444444;
-    border-radius: 0.25rem;
-    background-color: #333333;
-    color: #ffffff;
-    margin-bottom: 1rem;
-}
-
-input::placeholder,
-textarea::placeholder {
-    color: #bbbbbb;
-}
-
-.btn-min-max {
-    width: 35px;
-    height: 35px;
-    display: inline-flex; /* Usar flexbox para centralizar o conteúdo */
-    align-items: center; /* Centraliza verticalmente */
-    justify-content: center; /* Centraliza horizontalmente */
-    border: none; /* Remove bordas padrão do botão */
-    background-color: #5ead97; /* Cor de fundo do botão */
-    color: #fff; /* Cor do texto do botão */
-    font-size: 20px; /* Tamanho da fonte do texto */
-    cursor: pointer; /* Cursor de ponteiro ao passar sobre o botão */
-    border-radius: 100%; /* Faz o botão redondo */
-    padding: 0; /* Remove qualquer padding padrão */
-    box-sizing: border-box; /* Inclui bordas e padding no tamanho total */
-    flex-shrink: 0; /* Impede que o botão encolha */
-}
-
-.hidden {
-    display: none;
-}
-
-.show {
-    display: flex;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
-    overflow-y: auto;
-    align-items: center;
-    justify-content: center;
-}
-
-.modal.show {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.modal-content {
-    background-color: #1a1a1a;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
-    width: 100vw;
-    max-width: 90vw;
-    max-height: 90vh;
-    color: #ffffff;
-    overflow-y: auto;
-}
-
-.text-box {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    overflow: hidden;
-}
-
-.subtopic {
-    word-break: break-word;
-    writing-mode: horizontal-tb;
-}
-
-.shadow-xl {
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
-}
-
-.text-left {
-    text-align: left;
-}
-
-.text-right {
-    text-align: right;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-}
-
-th,
-td {
-    border: 1px solid #444444;
-    padding: 0.75rem;
-}
-
-th {
-    background-color: #333333;
-}
-
-td,
-li,
-ul {
-    background-color: #1a1a1a;
-}
-
-.mt-4 {
-    margin-top: 1rem;
-}
-
-.mb-4 {
-    margin-bottom: 1rem;
-}
-
-.item-list-card, .spell-list-card {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.item-buttons, .spell-buttons {
-    display: flex;
-    gap: 10px;
-    justify-content: end;
-}
-
-
-#item-cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-/* Para telas menores (celulares) */
-.item-card {
-    flex: 1 1 calc(33% - 0px);
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: #1a1a1a;
-}
-
-/* Para telas médias (tablets) */
-@media (min-width: 700px) {
-    .item-card {
-        flex: 1 1 calc(30% - 10px);
+/* Ajustes responsivos */
+@media (max-width: 600px) {
+    h2 {
+        font-size: 20px;
     }
-}
 
-/* Para telas grandes (desktops) */
-@media (min-width: 900px) {
-    .item-card {
-        flex: 1 1 calc(20% - 10px);
+    button {
+        font-size: 14px;
     }
-}
-
-.item-card h3 {
-    margin-top: 0;
-    font-size: 20px;
-}
-
-.spell-card {
-    flex: 1 1 calc(33% - 0px);
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: #1a1a1a;
-    margin-bottom: 10px;
-}
-
-.spell-card h3 {
-    margin-top: 0;
-    font-size: 20px;
 }

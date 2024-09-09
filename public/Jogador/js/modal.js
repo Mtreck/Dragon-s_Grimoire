@@ -1,4 +1,4 @@
-import {loadCharacterDataToModal} from './jogadorFicha.js'
+import {loadCharacterDataToModal} from './personagemFicha.js'
 
 export async function openModal(modalId) {
     if (modalId == 'character-modal'){

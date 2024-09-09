@@ -1,18 +1,18 @@
 import { db, doc, getDoc, deleteDoc, setDoc } from '../../bd.js';
 
-const jogadorId = 'PTYlBypR3uej9RzN18pm'; // Substitua pelo ID real do jogador
-const personagemId = 'HCIlBRPaLuogGHYYGupZ'; // Substitua pelo ID real do personagem
+const jogadorId = localStorage.getItem('jogadorId'); // Busca o ID do jogador
+const personagemId = localStorage.getItem('personagemId'); // Busca o ID do personagem
 
 let characterData = {};
 
-async function loadCharacterData() {
+export async function loadCharacterData() {
     try {
         const personagemDocRef = doc(db, 'jogador', jogadorId, 'personagem', personagemId);
         const personagemSnapshot = await getDoc(personagemDocRef);
         
         if (personagemSnapshot.exists()) {
             characterData = personagemSnapshot.data();
-            console.log('Dados do personagem carregados:', characterData);
+            //console.log('Dados do personagem carregados:', characterData);
             displayCharacter(); // Exibir dados na página
         } else {
             console.log('Nenhum personagem encontrado.');
@@ -71,7 +71,7 @@ document.getElementById('save-character').onclick = async function (event) {
         try {
             const personagemDocRef = doc(db, 'jogador', jogadorId, 'personagem', personagemId);
             await setDoc(personagemDocRef, characterData);
-            console.log('Personagem salvo com sucesso!');
+            alert('Personagem salvo com sucesso!');
         } catch (error) {
             console.error('Erro ao salvar personagem:', error);
         }
@@ -274,7 +274,6 @@ function validateForm() {
     return valid;
 }
 
-// Carregar e exibir o personagem quando a página carregar
 // Carregar os dados ao carregar a página
 document.addEventListener('DOMContentLoaded', loadCharacterData);
 

@@ -1,7 +1,7 @@
-import { db, collection, doc, getDocs, getDoc, addDoc, updateDoc, deleteDoc } from '../../bd.js';
+import { db, collection, doc, getDocs, getDoc, addDoc, deleteDoc } from '../../bd.js';
 
-const jogadorId = 'PTYlBypR3uej9RzN18pm'; // Substitua pelo ID real do jogador
-const personagemId = 'HCIlBRPaLuogGHYYGupZ'; // Substitua pelo ID real do personagem
+const jogadorId = localStorage.getItem('jogadorId'); // Busca o ID do jogador
+const personagemId = localStorage.getItem('personagemId'); // Busca o ID do personagem
 
 const notesList = document.getElementById('notes-list');
 const notesForm = document.getElementById('notes-form');
@@ -30,7 +30,7 @@ async function loadNotes() {
 }
 
 // Função para renderizar as notas na tela
-function renderNotes(notes) {
+export function renderNotes(notes) {
     notesList.innerHTML = '';
     if (notes.length > 0) {
         const notesTitle = document.createElement('label');
@@ -65,7 +65,7 @@ async function addNote(noteTitle) {
             order: new Date()
         };
         const docRef = await addDoc(notesCollectionRef, newNote);
-        console.log(`Nota adicionada com sucesso:`, docRef.id);
+        alert(`Nota adicionada com sucesso:`, docRef.id);
         loadNotes(); // Recarregar as notas após adicionar
     } catch (error) {
         console.error('Erro ao adicionar nota: ', error);
@@ -87,7 +87,7 @@ async function deleteNote(noteId) {
         const noteDocRef = doc(db, 'jogador', jogadorId, 'personagem', personagemId, 'anotacoes', noteId);
         await deleteDoc(noteDocRef);
         
-        console.log('Nota excluída com sucesso:', noteId);
+        alert('Nota excluída com sucesso:', noteId);
         loadNotes(); // Recarregar as notas após deletar
     } catch (error) {
         console.error('Erro ao excluir nota:', error);
@@ -122,14 +122,12 @@ async function openNoteModal(noteId) {
 async function loadSubtopics(noteId) {
     const subtopicsCollectionRef = collection(db, 'jogador', jogadorId, 'personagem', personagemId, 'anotacoes', noteId, 'topicos');
     const querySnapshot = await getDocs(subtopicsCollectionRef);
-
     const subtopics = [];
     querySnapshot.forEach((docSnapshot) => {
         const subtopic = docSnapshot.data();
         subtopic.id = docSnapshot.id; // Captura o ID do documento
         subtopics.push(subtopic);
     });
-
     renderSubtopics(subtopics);
 }
 
@@ -145,11 +143,11 @@ function renderSubtopics(subtopics) {
                     <button class="btn-danger btn-sm mb-1" onclick="deleteSubtopic('${subtopic.id}')">Excluir</button>
                 </td>
             `;
-
-        // Ordena os subtópicos pelo timestamp de criação antes de mostrar na tela
-        subtopics.sort((a, b) => a.order.seconds - b.order.seconds);
         subtopicsList.appendChild(tr);
     });
+    // Ordena os subtópicos pelo timestamp de criação antes de mostrar na tela
+    subtopics.sort((a, b) => a.order.seconds - b.order.seconds);
+
 }
 
 // Função para adicionar um subtópico ao Firestore
@@ -165,7 +163,7 @@ async function addSubtopic() {
             order: new Date()
         };
         await addDoc(subtopicsCollectionRef, newSubtopic);
-        console.log('Subtópico adicionado com sucesso!');
+        alert('Subtópico adicionado com sucesso!');
         loadSubtopics(currentNoteId); // Recarregar os subtópicos após adicionar
         subtopicInput.value = ''; // Limpar o campo de entrada
     } catch (error) {
@@ -181,7 +179,7 @@ async function deleteSubtopic(subtopicId) {
         const subtopicDocRef = doc(personagemDocRef, 'anotacoes', currentNoteId, 'topicos', subtopicId);
 
         await deleteDoc(subtopicDocRef);
-        console.log('Subtópico excluído com sucesso:', subtopicId);
+        alert('Subtópico excluído com sucesso:', subtopicId);
         loadSubtopics(currentNoteId); // Recarregar os subtópicos após deletar
     } catch (error) {
         console.error('Erro ao excluir subtópico:', error);
@@ -203,6 +201,7 @@ addSubtopicButton.addEventListener('click', addSubtopic);
 document.addEventListener('DOMContentLoaded', () => {
     loadNotes();
 });
+
 // Tornar as funções acessíveis globalmente
 window.openNoteModal = openNoteModal;
 window.deleteNote = deleteNote;
