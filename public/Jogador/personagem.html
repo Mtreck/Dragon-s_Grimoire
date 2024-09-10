@@ -5,43 +5,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dragon's Grimoire Jogador</title>
-    <!--Bootstrap 5-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="personagem.css">
 </head>
 
 <body class="p-3">
-
     <header>
         <div class="logo-container text-left">
             <a id="logout-btn" class="back-button rounded">&#8592;</a>
             <img src="../img/logo.png" alt="Dragon's Grimoire Logo">
-            <h1>D&D 5e Ficha de Personagem</h1>
+            <strong>
+                <h1>D&D 5e Ficha de Personagem</h1>
+            </strong>
         </div>
     </header>
     <main class="grid-container">
-
-        <!-- SECTION DA FICHA -->
         <section class="p-4 rounded shadow-md mb-6 text-box" id="character-sheet">
-            <h2 class="text-xl font-semibold mb-4">
-                <strong>Detalhes do Personagem</strong>
+            <h1 class="text-xl font-semibold mb-4">
+                <strong>Ficha</strong>
                 <button class="btn-min-max" onclick="toggleSection('character-sheet')">-</button>
-            </h2>
+            </h1>
             <div id="character-details">
-                <!-- AS informações do personagem saem aqui  -->
             </div>
             <div class="text-center">
                 <button class="px-4 py-2 rounded mt-2" onclick="openModal('character-modal')">Editar Personagem</button>
             </div>
-
         </section>
-
-        <!-- SECTION DE ANOTAÇÕES -->
         <section class="p-4 rounded shadow-md mb-6 text-box" id="notes-section">
-            <h2 class="text-xl font-semibold mb-4">Notas Mentais
-                <button class="btn-min-max" onclick="toggleSection('notes-section')">-</button>
-            </h2>
+                <h1 class="text-xl font-semibold mb-4">
+                    <strong>Notas Mentais</strong>
+                    <button class="btn-min-max" onclick="toggleSection('notes-section')">-</button>
+                </h1>            
             <form id="notes-form">
                 <div class="mb-2">
                     <label class="block mb-1" for="note-title">Título da Anotação</label>
@@ -53,54 +48,35 @@
                 </div>
             </form>
             <ul id="notes-list" class="mt-4 list-group">
-                <!-- As anotações saem aqui -->
             </ul>
         </section>
-
-        <!-- SECTION DE ITENS -->
         <section class="p-4 rounded shadow-md mb-6 text-box" id="items-section">
-            <h2 class="text-xl font-semibold mb-4">Itens
-                <button class="btn-min-max" onclick="toggleSection('items-section')">-</button>
-            </h2>
+                <h1 class="text-xl font-semibold mb-4">
+                    <strong>Itens</strong>
+                    <button class="btn-min-max" onclick="toggleSection('items-section')">-</button>
+                </h1>
             <div class="mb-4 text-center">
-                <button id="buscar-itens-btn" class="px-4 py-2 rounded" type="button" onclick="openModal('item-modal')">Buscar Item</button>
+                <button id="buscar-itens-btn" class="px-4 py-2 rounded" type="button"
+                    onclick="openModal('item-modal')">Buscar Item</button>
             </div>
             <div id="items-list">
-                <!-- Os itens saem aqui -->
             </div>
         </section>
-
-        <!-- SECTION DAS MAGIAS -->
         <section class="p-4 rounded shadow-md mb-6 text-box" id="spells-section">
-            <h2 class="text-xl font-semibold mb-4">Magias
-                <button class="btn-min-max" onclick="toggleSection('spells-section')">-</button>
-            </h2>
+                <h1 class="text-xl font-semibold mb-4">
+                    <strong>Magias</strong>
+                    <button class="btn-min-max" onclick="toggleSection('spells-section')">-</button>
+                </h1>
             <div class="mb-4 text-center">
                 <button id="buscar-magias-btn" class="px-4 py-2 rounded" type="button">Buscar Magia</button>
             </div>
             <div id="spells-list" class="mt-4">
-                <!-- As magias saem aqui -->
             </div>
         </section>
-
-        <!-- SECTION DE IMPORT -->
-        <!-- MANUTENÇÃO -->
-        <!-- <section class="p-4 rounded shadow-md mb-6" id="exp-imp-section">
-            <h2 class="text-xl font-semibold mb-4">Exportar/Importar Informações do Personagem
-                <button class="btn-min-max" onclick="toggleSection('exp-imp-section')">-</button>
-            </h2>
-            <div>
-                <button class="px-4 py-2 rounded" onclick="exportCharacter()">Exportar Dados do Personagem</button>
-                <input type="file" id="import-file" class="mt-4" onchange="importCharacter(event)">
-            </div>
-        </section> -->
     </main>
-
-    <!-- Modal para Edição de Informações do Personagem -->
     <div id="character-modal" class="fixed hidden modal" aria-labelledby="character-modal" role="dialog"
         aria-modal="true">
         <div class="modal-content">
-            <!-- Conteúdo do Modal -->
             <h3 class="text-lg leading-6 font-medium" id="character-modal">Informação do Personagem</h3>
             <form id="character-form-modal create-character">
                 <div class="">
@@ -110,6 +86,10 @@
                 <div class="">
                     <label class="block mb-1" for="race-modal">Raça</label>
                     <input class="w-full p-2 border rounded" type="text" id="race-modal" required>
+                </div>
+                <div class="">
+                    <label class="block mb-1" for="race-modal">Antecedente</label>
+                    <input class="w-full p-2 border rounded" type="text" id="antecedent-modal" required>
                 </div>
                 <div class="">
                     <label class="block mb-1" for="level-modal" min="1" max="20">Level</label>
@@ -170,7 +150,6 @@
                 </div>
                 <h3 class="mt-4">Proficiências</h3>
                 <div class="mb-4">
-                    <h3>Proficiências</h3>
                     <div class="grid-container-proficiencies">
                         <label class="proficiency-item text-center"><input type="checkbox" id="acrobatics-proficiency">
                             Acrobacia (Des)</label>
@@ -231,8 +210,6 @@
             </form>
         </div>
     </div>
-
-    <!-- MODAL PARA VISUALIZAR E ADICIONAR ITENS-->
     <div id="item-modal" class="fixed hidden modal" aria-labelledby="item-modal" role="dialog" aria-modal="true">
         <div class="modal-content">
             <div class="container mb-3">
@@ -251,9 +228,7 @@
             </div>
         </div>
     </div>
-
-    <!-- Modal para edição de itens -->
-    <div id="edit-item-modal" class="fixed hidden modal" >
+    <div id="edit-item-modal" class="fixed hidden modal">
         <div class="modal-content">
             <div class="container mb-3">
                 <h1>Editar item</h1>
@@ -267,13 +242,11 @@
                 <label for="edit-item-descricao">Descrição:</label>
                 <input type="text" id="edit-item-descricao" name="descricao" required>
                 <label for="edit-item-po">Ouro (po):</label>
-            <input type="number" id="edit-item-po" name="po" required>
+                <input type="number" id="edit-item-po" name="po" required>
                 <div class="text-right"><button type="submit">Salvar Alterações</button></div>
             </form>
         </div>
     </div>
-
-    <!-- MODAL PARA VISUALIZAÇÃO E ADICIONAR MAGIA -->
     <div id="spell-modal" class="fixed hidden modal" aria-labelledby="spell-modal" role="dialog" aria-modal="true">
         <div class="modal-content">
             <div class="container mb-3">
@@ -292,16 +265,11 @@
             </div>
         </div>
     </div>
-
-    <!-- MODAL PARA DESCRIÇÃO COMPLETA DA MAGIA -->
     <div id="all-spell-modal" class="modal" aria-labelledby="descricao-modal" role="dialog" aria-modal="true">
         <div class="modal-content">
             <div id="spell-list-info"></div>
-            <!-- <button id="close-spell-modal" class="btn-danger px-1 py-1 rounded" onclick="closeModal('all-spell-modal')">Fechar</button> -->
         </div>
     </div>
-
-    <!-- Modal para Notas Mentais -->
     <div id="note-modal" class="fixed hidden modal" aria-labelledby="note-modal" role="dialog" aria-modal="true">
         <div class="modal-content">
             <h3 class="text-lg leading-6 font-medium">Editar Nota</h3>
@@ -322,7 +290,6 @@
                     </tr>
                 </thead>
                 <tbody id="subtopics-list">
-                    <!-- Subtópicos saem aqui -->
                 </tbody>
             </table>
             <div class="px-4 py-3 text-right">
@@ -330,15 +297,12 @@
             </div>
         </div>
     </div>
-
     <script type="module" src="js/signOut.js"></script>
     <script type="module" src="js/modal.js"></script>
     <script type="module" src="js/personagemItem.js"></script>
     <script type="module" src="js/personagemMagia.js"></script>
     <script type="module" src="js/personagemNotas.js"></script>
     <script type="module" src="js/personagemFicha.js"></script>
-
-    <!-- Link do script do Bootstrap5 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>

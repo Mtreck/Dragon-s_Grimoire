@@ -42,9 +42,19 @@ header {
     color: #64c8aa;
 }
 
-h1,
 h3 {
     width: fit-content;
+}
+
+#character-details h4 {
+    margin-top: 1rem;
+    margin-bottom: 0;
+}
+
+.inner-section{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: baseline;
 }
 
 .container {
@@ -97,9 +107,15 @@ section {
     margin-bottom: 1.5rem;
 }
 
-section h2 {
+section h1{
     display: flex;
     justify-content: space-between;
+    align-items: center;     
+}
+
+section h2  {
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
@@ -137,18 +153,18 @@ textarea::placeholder {
 .btn-min-max {
     width: 35px;
     height: 35px;
-    display: inline-flex; /* Usar flexbox para centralizar o conteúdo */
-    align-items: center; /* Centraliza verticalmente */
-    justify-content: center; /* Centraliza horizontalmente */
-    border: none; /* Remove bordas padrão do botão */
-    background-color: #5ead97; /* Cor de fundo do botão */
-    color: #fff; /* Cor do texto do botão */
-    font-size: 20px; /* Tamanho da fonte do texto */
-    cursor: pointer; /* Cursor de ponteiro ao passar sobre o botão */
-    border-radius: 100%; /* Faz o botão redondo */
-    padding: 0; /* Remove qualquer padding padrão */
-    box-sizing: border-box; /* Inclui bordas e padding no tamanho total */
-    flex-shrink: 0; /* Impede que o botão encolha */
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    border: none; 
+    background-color: #5ead97;
+    color: #fff; 
+    font-size: 20px; 
+    cursor: pointer; 
+    border-radius: 100%;
+    padding: 0; 
+    box-sizing: border-box; 
+    flex-shrink: 0; 
 }
 
 .hidden {
@@ -234,13 +250,17 @@ ul {
     background-color: #1a1a1a;
 }
 
-.mt-4 {
-    margin-top: 1rem;
+p {
+    margin-bottom: 0px;
 }
 
-.mb-4 {
-    margin-bottom: 1rem;
+.item-qnt-po{
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    flex: 1;
 }
+
 
 .item-list-card, .spell-list-card {
     border: 1px solid #ccc;
@@ -265,7 +285,6 @@ ul {
     margin-top: 20px;
 }
 
-/* Para telas menores (celulares) */
 .item-card {
     flex: 1 1 calc(33% - 0px);
     border: 1px solid #ccc;
@@ -275,14 +294,16 @@ ul {
     background-color: #1a1a1a;
 }
 
-/* Para telas médias (tablets) */
+item-w{
+    
+}
+
 @media (min-width: 700px) {
     .item-card {
         flex: 1 1 calc(30% - 10px);
     }
 }
 
-/* Para telas grandes (desktops) */
 @media (min-width: 900px) {
     .item-card {
         flex: 1 1 calc(20% - 10px);

@@ -1,10 +1,9 @@
 import { db, collection, getDocs, doc, setDoc } from '../../bd.js';
 import { checkAuth } from './auth.js';
 
-// Executa o script apenas após a autenticação
 checkAuth()
     .then(() => {
-        carregarPersonagens(); // Somente carrega os personagens após a autenticação
+        carregarPersonagens();
     })
     .catch((error) => {
         console.error('Erro de autenticação:', error);
@@ -13,15 +12,14 @@ checkAuth()
 async function carregarPersonagens() {
     const jogadorId = localStorage.getItem('jogadorId');
     if (!jogadorId) {
-        window.location.href = 'login.html'; // Redirecionar se não houver jogadorId no localStorage
+        window.location.href = 'login.html';
     }
 
     const personagensRef = collection(db, 'jogador', jogadorId, 'personagem');
     const querySnapshot = await getDocs(personagensRef);
 
     const characterGrid = document.getElementById('character-grid');
-    characterGrid.innerHTML = ''; // Limpar a grade de personagens
-
+    characterGrid.innerHTML = ''; 
     querySnapshot.forEach((doc) => {
         const personagem = doc.data();
         const personagemId = doc.id;
@@ -29,8 +27,8 @@ async function carregarPersonagens() {
         const button = document.createElement('button');
         button.textContent = personagem.name;
         button.addEventListener('click', () => {
-            localStorage.setItem('personagemId', personagemId); // Salva o personagemId no localStorage
-            window.location.href = 'personagem.html'; // Redireciona para jogador.html
+            localStorage.setItem('personagemId', personagemId); 
+            window.location.href = 'personagem.html'; 
         });
 
         characterGrid.appendChild(button);
@@ -41,7 +39,7 @@ async function criarPersonagem() {
     const jogadorId = localStorage.getItem('jogadorId');
 
     const personagensRef = collection(db, 'jogador', jogadorId, 'personagem');
-    const novoPersonagemRef = doc(personagensRef); // Cria um novo Documento para o personagem
+    const novoPersonagemRef = doc(personagensRef); 
     const novoPersonagemData = {
         name: "Personagem Novo",
         race: " ",
@@ -91,3 +89,4 @@ async function criarPersonagem() {
 document.getElementById('create-character-btn').addEventListener('click', criarPersonagem);
 
 // document.addEventListener('DOMContentLoaded', carregarPersonagens);
+//

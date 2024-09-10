@@ -1,7 +1,7 @@
 import { db, doc, getDoc, deleteDoc, setDoc } from '../../bd.js';
 
-const jogadorId = localStorage.getItem('jogadorId'); // Busca o ID do jogador
-const personagemId = localStorage.getItem('personagemId'); // Busca o ID do personagem
+const jogadorId = localStorage.getItem('jogadorId');
+const personagemId = localStorage.getItem('personagemId'); 
 
 let characterData = {};
 
@@ -13,7 +13,7 @@ export async function loadCharacterData() {
         if (personagemSnapshot.exists()) {
             characterData = personagemSnapshot.data();
             //console.log('Dados do personagem carregados:', characterData);
-            displayCharacter(); // Exibir dados na página
+            displayCharacter();
         } else {
             console.log('Nenhum personagem encontrado.');
         }
@@ -22,14 +22,13 @@ export async function loadCharacterData() {
     }
 }
 
-// Função para salvar ou atualizar o personagem no Firestore
 document.getElementById('save-character').onclick = async function (event) {
     event.preventDefault();
     if (validateForm()) {
-        // Atualizar o array local com os novos dados do modal
         characterData = {
             name: document.getElementById('name-modal').value,
             race: document.getElementById('race-modal').value,
+            antecedent: document.getElementById('antecedent-modal').value,
             class: document.getElementById('class-modal').value,
             level: document.getElementById('level-modal').value,
             armorClass: document.getElementById('armor-class-modal').value,
@@ -76,7 +75,7 @@ document.getElementById('save-character').onclick = async function (event) {
             console.error('Erro ao salvar personagem:', error);
         }
         closeModal('character-modal');
-        displayCharacter(); // Atualiza a exibição do personagem
+        displayCharacter();
     }
 };
 
@@ -85,11 +84,11 @@ document.getElementById('cancel-character').onclick = function (event) {
     closeModal('character-modal');
 };
 
-// Função para carregar os dados do personagem específico no modal
 export function loadCharacterDataToModal() {
     if (characterData && characterData.stats && characterData.proficiencies) {
         document.getElementById('name-modal').value = characterData.name;
         document.getElementById('race-modal').value = characterData.race;
+        document.getElementById('antecedent-modal').value = characterData.antecedent || null;
         document.getElementById('class-modal').value = characterData.class;
         document.getElementById('level-modal').value = characterData.level;
         document.getElementById('armor-class-modal').value = characterData.armorClass;
@@ -125,16 +124,14 @@ export function loadCharacterDataToModal() {
 
     } else {
         console.log("Ainda não foram atribuidos dados ao personagem para serem mostrados.");
-        // Sai da função se os dados forem nulos ou incompletos
+
     }
 }
 
-
-// Função para exibir o personagem específico na página principal
 function displayCharacter() {
     if (!characterData || !characterData.stats || !characterData.proficiencies) {
         console.log("Ainda não foram atribuídos dados ao personagem para serem mostrados.");
-        return; // Sai da função se os dados forem nulos ou incompletos
+        return; 
     }
 
     const bonuses = {
@@ -148,64 +145,73 @@ function displayCharacter() {
     };
 
     const proficiencyList = `
-        <p><strong>Acrobacia (Des):</strong> ${calculateProficiencyBonus(bonuses.dexterity, characterData.proficiencies.acrobatics, bonuses.proficiency)}</p>
-        <p><strong>Adestrar Animais (Sab):</strong> ${calculateProficiencyBonus(bonuses.wisdom, characterData.proficiencies.animalHandling, bonuses.proficiency)}</p>
-        <p><strong>Arcanismo (Int):</strong> ${calculateProficiencyBonus(bonuses.intelligence, characterData.proficiencies.arcana, bonuses.proficiency)}</p>
+        <div class="inner-section">
+        <h2  class="mt-4"><strong>Proficiências</strong></h2>
+        <button class="btn-min-max" onclick="toggleSection('section-proficiency')">-</button>
+        </div>
+
+        <div id="section-proficiency">
+        <h4><strong>Força:</strong></h4>
         <p><strong>Atletismo (For):</strong> ${calculateProficiencyBonus(bonuses.strength, characterData.proficiencies.athletics, bonuses.proficiency)}</p>
-        <p><strong>Enganação (Car):</strong> ${calculateProficiencyBonus(bonuses.charisma, characterData.proficiencies.deception, bonuses.proficiency)}</p>
-        <p><strong>História (Int):</strong> ${calculateProficiencyBonus(bonuses.intelligence, characterData.proficiencies.history, bonuses.proficiency)}</p>
-        <p><strong>Intuição (Sab):</strong> ${calculateProficiencyBonus(bonuses.wisdom, characterData.proficiencies.insight, bonuses.proficiency)}</p>
-        <p><strong>Intimidação (Car):</strong> ${calculateProficiencyBonus(bonuses.charisma, characterData.proficiencies.intimidation, bonuses.proficiency)}</p>
-        <p><strong>Investigação (Int):</strong> ${calculateProficiencyBonus(bonuses.intelligence, characterData.proficiencies.investigation, bonuses.proficiency)}</p>
-        <p><strong>Medicina (Sab):</strong> ${calculateProficiencyBonus(bonuses.wisdom, characterData.proficiencies.medicine, bonuses.proficiency)}</p>
-        <p><strong>Natureza (Int):</strong> ${calculateProficiencyBonus(bonuses.intelligence, characterData.proficiencies.nature, bonuses.proficiency)}</p>
-        <p><strong>Percepção (Sab):</strong> ${calculateProficiencyBonus(bonuses.wisdom, characterData.proficiencies.perception, bonuses.proficiency)}</p>
-        <p><strong>Atuação (Car):</strong> ${calculateProficiencyBonus(bonuses.charisma, characterData.proficiencies.performance, bonuses.proficiency)}</p>
-        <p><strong>Persuasão (Car):</strong> ${calculateProficiencyBonus(bonuses.charisma, characterData.proficiencies.persuasion, bonuses.proficiency)}</p>
-        <p><strong>Religião (Int):</strong> ${calculateProficiencyBonus(bonuses.intelligence, characterData.proficiencies.religion, bonuses.proficiency)}</p>
+        
+        <h4><strong>Destreza:</strong></h4>
+        <p><strong>Acrobacia (Des):</strong> ${calculateProficiencyBonus(bonuses.dexterity, characterData.proficiencies.acrobatics, bonuses.proficiency)}</p>
         <p><strong>Prestidigitação (Des):</strong> ${calculateProficiencyBonus(bonuses.dexterity, characterData.proficiencies.sleightOfHand, bonuses.proficiency)}</p>
         <p><strong>Furtividade (Des):</strong> ${calculateProficiencyBonus(bonuses.dexterity, characterData.proficiencies.stealth, bonuses.proficiency)}</p>
+
+        <h4><strong>Inteligência:</strong></h4>
+        <p><strong>Arcanismo (Int):</strong> ${calculateProficiencyBonus(bonuses.intelligence, characterData.proficiencies.arcana, bonuses.proficiency)}</p>
+        <p><strong>História (Int):</strong> ${calculateProficiencyBonus(bonuses.intelligence, characterData.proficiencies.history, bonuses.proficiency)}</p>
+        <p><strong>Investigação (Int):</strong> ${calculateProficiencyBonus(bonuses.intelligence, characterData.proficiencies.investigation, bonuses.proficiency)}</p>
+        <p><strong>Natureza (Int):</strong> ${calculateProficiencyBonus(bonuses.intelligence, characterData.proficiencies.nature, bonuses.proficiency)}</p>
+        <p><strong>Religião (Int):</strong> ${calculateProficiencyBonus(bonuses.intelligence, characterData.proficiencies.religion, bonuses.proficiency)}</p>
+        
+        <h4><strong>Sabedoria:</strong></h5>
+        <p><strong>Adestrar Animais (Sab):</strong> ${calculateProficiencyBonus(bonuses.wisdom, characterData.proficiencies.animalHandling, bonuses.proficiency)}</p>
+        <p><strong>Intuição (Sab):</strong> ${calculateProficiencyBonus(bonuses.wisdom, characterData.proficiencies.insight, bonuses.proficiency)}</p>
+        <p><strong>Medicina (Sab):</strong> ${calculateProficiencyBonus(bonuses.wisdom, characterData.proficiencies.medicine, bonuses.proficiency)}</p>
+        <p><strong>Percepção (Sab):</strong> ${calculateProficiencyBonus(bonuses.wisdom, characterData.proficiencies.perception, bonuses.proficiency)}</p>
         <p><strong>Sobrevivência (Sab):</strong> ${calculateProficiencyBonus(bonuses.wisdom, characterData.proficiencies.survival, bonuses.proficiency)}</p>
+
+        <h4><strong>Carisma:</strong></h4>
+        <p><strong>Enganação (Car):</strong> ${calculateProficiencyBonus(bonuses.charisma, characterData.proficiencies.deception, bonuses.proficiency)}</p>
+        <p><strong>Intimidação (Car):</strong> ${calculateProficiencyBonus(bonuses.charisma, characterData.proficiencies.intimidation, bonuses.proficiency)}</p>
+        <p><strong>Atuação (Car):</strong> ${calculateProficiencyBonus(bonuses.charisma, characterData.proficiencies.performance, bonuses.proficiency)}</p>  
+        <p><strong>Persuasão (Car):</strong> ${calculateProficiencyBonus(bonuses.charisma, characterData.proficiencies.persuasion, bonuses.proficiency)}</p>        
+        </div>
     `;
 
     document.getElementById('character-details').innerHTML = `
+        <h2><strong>Detalhes do Personagem</strong></h2>
         <p><strong>Nome:</strong> ${characterData.name}</p>
         <p><strong>Raça:</strong> ${characterData.race}</p>
+        <p><strong>Antecedente:</strong> ${characterData.antecedent}</p>
         <p><strong>Level:</strong> ${characterData.level} (Proficiência: ${bonuses.proficiency >= 1 ? '+' : ''} ${bonuses.proficiency})</p>
         <p><strong>Classe:</strong> ${characterData.class}</p>
         <p><strong>Classe Armadura (CA):</strong> ${characterData.armorClass}</p>
         <p><strong>Iniciativa:</strong> +${parseInt(characterData.initiative) + bonuses.dexterity}</p>
         <p><strong>Pontos de Vitalidade (PV):</strong> ${characterData.hitPoints}</p>
-        <h3 class="mt-4 mb-2"><strong>Atributos</strong></h3>
+        <h2 class="mt-4 mb-2"><strong>Atributos</strong></h2>
         <p><strong>Força:</strong> ${characterData.stats.strength} (Bônus: ${bonuses.strength >= 0 ? '+' : ''}${bonuses.strength})</p>
         <p><strong>Destreza:</strong> ${characterData.stats.dexterity} (Bônus: ${bonuses.dexterity >= 0 ? '+' : ''}${bonuses.dexterity})</p>
         <p><strong>Constituição:</strong> ${characterData.stats.constitution} (Bônus: ${bonuses.constitution >= 0 ? '+' : ''}${bonuses.constitution})</p>
         <p><strong>Inteligência:</strong> ${characterData.stats.intelligence} (Bônus: ${bonuses.intelligence >= 0 ? '+' : ''}${bonuses.intelligence})</p>
         <p><strong>Sabedoria:</strong> ${characterData.stats.wisdom} (Bônus: ${bonuses.wisdom >= 0 ? '+' : ''}${bonuses.wisdom})</p>
         <p><strong>Carisma:</strong> ${characterData.stats.charisma} (Bônus: ${bonuses.charisma >= 0 ? '+' : ''}${bonuses.charisma})</p>
-        <h3 class="mt-4"><strong>Proficiências:</strong></h3>
         ${proficiencyList}
-        <h3 class="mt-4"><strong>Informações:</strong></h3>
-        <p><strong>Habilidades:</strong> ${characterData.abilities.replace(/\n/g, '<br>')}</p>
-        <p><strong>Background:</strong> ${characterData.background.replace(/\n/g, '<br>')}</p>
-        <p><strong>Características:</strong> ${characterData.traits.replace(/\n/g, '<br>')}</p>
+        <div class="inner-section" >
+        <h2 class="mt-4"><strong>Informações</strong></h2>
+        <button class="btn-min-max" onclick="toggleSection('section-info')">+</button>
+        </div>
+        <div id="section-info">
+        <p style="display: none;"><strong>Habilidades:</strong> ${characterData.abilities.replace(/\n/g, '<br>')}</p>
+        <p style="display: none;"><strong>Background:</strong> ${characterData.background.replace(/\n/g, '<br>')}</p>
+        <p style="display: none;"><strong>Características:</strong> ${characterData.traits.replace(/\n/g, '<br>')}</p>
+        </div>
     `;
+
 }
 
-// Função para deletar o personagem específico
-// async function deleteCharacter() {
-//     try {
-//         const personagemDocRef = doc(db, "jogador", jogadorId, "personagem", personagemId);
-//         await deleteDoc(personagemDocRef);
-//         alert('Personagem excluído com sucesso!');
-//         displayCharacter();
-//     } catch (e) {
-//         console.error("Erro ao excluir personagem: ", e);
-//         alert('Erro ao excluir personagem.');
-//     }
-// }
-
-// Funções auxiliares para cálculos
 function calculateBonus(stat) {
     return Math.floor((stat - 10) / 2);
 }
@@ -228,9 +234,9 @@ function calculeteProficiency(levelProficiency) {
 
 function toggleSection(sectionId) {
     const section = document.getElementById(sectionId);
-    if (!section) return; //Se não existir sessão fecha a função. 
-    const contents = section.querySelectorAll('div, form, ul, li');
-    const button = section.querySelector('button');
+    if (!section) return;
+    const contents = section.querySelectorAll('div, form, ul, li, p, h4');
+    const button = document.querySelector(`button[onclick="toggleSection('${sectionId}')"]`);
 
     if (contents.length > 0) {
         contents.forEach(content => {
@@ -244,7 +250,6 @@ function toggleSection(sectionId) {
     } else {
         console.warn(`No toggleable content found in section: ${sectionId}`);
     }
-
 }
 
 function validateForm() {
@@ -274,7 +279,6 @@ function validateForm() {
     return valid;
 }
 
-// Carregar os dados ao carregar a página
 document.addEventListener('DOMContentLoaded', loadCharacterData);
 
 window.toggleSection = toggleSection;

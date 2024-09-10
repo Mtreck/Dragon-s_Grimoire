@@ -19,7 +19,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
 
         const jogadorId = await buscarOuCriarJogador(userCredential.user.email);
         localStorage.setItem('jogadorId', jogadorId);
-        alert("Bem vindo ", userCredential.user.email)
+        alert("Bem vindo ", userCredential.email);
         //redirect
         if (!loginRedirected && window.location.pathname !== '/jogador.html') {
             loginRedirected = true;
