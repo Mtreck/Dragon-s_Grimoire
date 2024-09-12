@@ -250,3 +250,86 @@ footer {
     box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
   }
 
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    .feedback-section {
+        flex-direction: column; /* Alinha os itens verticalmente em telas menores */
+        padding: 2rem;
+    }
+
+    .feedback-content {
+        max-width: 100%; /* Ocupa toda a largura em telas pequenas */
+        text-align: center;
+    }
+
+    .feedback-images {
+        justify-content: center;
+    }
+
+    .feedback-img {
+        width: 300px; /* Reduz o tamanho das imagens */
+        left: 0; /* Remove o deslocamento lateral em telas pequenas */
+    }
+
+    .card-container {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .project-description {
+        width: 90%; /* Garante que o conteúdo ocupe quase toda a largura em telas menores */
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
+
+    .cards {
+        flex-direction: column; /* Coloca os cards um abaixo do outro */
+        align-items: center;
+    }
+
+    .card-1, .card-2 {
+        width: 80%; /* Aumenta a largura dos cards em telas menores */
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .feedback-img {
+        width: 200px; /* Ainda mais pequeno para caber em telas muito pequenas */
+    }
+
+    .feedback-title {
+        font-size: 1.8rem;
+    }
+
+    .feedback-text {
+        font-size: 1rem;
+    }
+
+    .card-container {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .project-description {
+        margin-top: 5%;
+        margin-bottom: 5%;
+        width: 95%; /* Mais espaço para o conteúdo */
+    }
+
+    .feedback-section {
+        padding: 1.5rem;
+    }
+
+    .feedback-button {
+        padding: 0.8rem 1.5rem;
+    }
+
+    .card-title {
+        font-size: 2rem;
+    }
+
+    .card-text {
+        font-size: 1rem;
+    }
+}
