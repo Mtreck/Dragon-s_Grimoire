@@ -1,4 +1,4 @@
-import { db, collection, addDoc, getDocs, deleteDoc, doc } from '/bd.js';
+import { db, collection, addDoc, getDocs, deleteDoc, doc } from 'bd.js';
 // Selecionando elementos do DOM
 const searchInput = document.getElementById('search');
 const classFilter = document.getElementById('class-filter');

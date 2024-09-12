@@ -6,7 +6,7 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-image: url(/img/img.jpg);
+    background-image: url(/public/img/img.jpg);
     background-repeat: none;
     background-size: cover;
 }
@@ -187,13 +187,57 @@ button:hover {
 }
 
 @media (max-width: 768px) {
-    .item-card {
-        flex: 1 1 calc(50% - 10px);
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    ul {
+        margin-left: 0;
+    }
+
+    li {
+        float: none;
+        margin-left: 0;
+    }
+
+    .logo-container img {
+        width: 80px;
+    }
+
+    header h1 {
+        font-size: 32px;
+    }
+
+    header p {
+        font-size: 14px;
     }
 }
 
 @media (max-width: 480px) {
-    .item-card {
-        flex: 1 1 100%;
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    ul {
+        margin-left: 0;
+    }
+
+    li {
+        float: none;
+        margin-left: 0;
+    }
+
+    .logo-container img {
+        width: 80px;
+    }
+
+    header h1 {
+        font-size: 32px;
+    }
+
+    header p {
+        font-size: 14px;
     }
 }

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dragon's Grimoire</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/10.13.1/firebase-app-compat.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/10.13.1/firebase-auth-compat.js"></script>
+    <script defer src="/__/firebase/10.13.1/firebase-database-compat.js"></script>
+    <script defer src="/__/firebase/10.13.1/firebase-firestore-compat.js"></script>
+    <script defer src="/__/firebase/10.13.1/firebase-functions-compat.js"></script>
+    <script defer src="/__/firebase/10.13.1/firebase-messaging-compat.js"></script>
+    <script defer src="/__/firebase/10.13.1/firebase-storage-compat.js"></script>
+    <script defer src="/__/firebase/10.13.1/firebase-analytics-compat.js"></script>
+    <script defer src="/__/firebase/10.13.1/firebase-remote-config-compat.js"></script>
+    <script defer src="/__/firebase/10.13.1/firebase-performance-compat.js"></script>
+    <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="index.css">
+  </head>
+  <body>
+    <header>
+      <img class="img-entrada" src="img/Baner-entrada.png" alt="">
+  </header>
+
+  <main>
+      <section>
+          <div class="slogan">
+                  <h2>Seu Portal para Aventuras Épicas!</h2>
+                  <p>No <strong> Dragon's Grimoire</strong>, facilitamos a vida de jogadores e mestres de RPG. <ins> Crie, gerencie e explore personagens, itens e magias</ins> com ferramentas intuitivas que tornam suas sessões mais rápidas e organizadas. Prepare-se para elevar seu jogo ao próximo nível!</p>
+                 
+          </div>
+      </section>
+
+      <h1 class="caminho">Escolha seu Caminho!</h1>
+
+      <section class="user-options">
+          <div class="card-container">
+            <h2 class="card-title">Jogador 🎮</h2>
+            <p class="card-text">Organize seu personagem de forma prática. Crie fichas, registre atributos, adicione itens e magias automaticamente calculados para facilitar sua aventura!</p>
+            <p class="card-option">
+              👉 Criação de Personagem
+              👉 Registro de Itens e Magias
+              👉 Notas Rápidas para Aventura
+            </p>
+             <a href="Jogador/jogador.html"><button class="card-button">Jogador</button></a>
+          </div>
+
+          <div class="card-container">
+            <h2 class="card-title">Mestre 🧙‍♂️</h2>
+            <p class="card-text"> Simplifique sua preparação e foco no que realmente importa: contar histórias épicas. Acesse rapidamente itens, magias e organize suas notas durante a sessão.</p>
+            <p class="card-option">
+              👉 Pesquisa Rápida de Itens
+              👉 Consulta de Magias
+              👉 Organização de Notas
+            </p>
+             <a href="Mestre/html/itemlist.html"><button class="card-button">Mestre</button></a>
+
+          </div>
+      </section>
+
+      <div class="baner-meio">
+          <img class="baner-meio" src="img/baner-meio.png" alt="">
+      </div>
+
+      <section class="project-description">
+        <div class="titulo-description">
+            <h2 class="h2-descript">Escolha Seu Caminho e Comece a Explorar!</h2>
+            <p>Cada aventura começa com uma boa preparação, estamos aqui para garantir que você esteja pronto para qualquer desafio. Seja você um jogador ou um mestre, nosso objetivo é simplificar a gestão e ampliar sua experiência no jogo.</p>
+        </div>
+    
+        <div class="cards">
+            <div class="card-1">
+                <img class="card-img" src="img/1icon-descript.png" alt="item1">
+                <p class="titulo-descript">Criação de Personagem</p>
+                <p class="p-descript">Crie e gerencie seu personagem com facilidade. Preencha os atributos, adicione magias e itens do livro automaticamente, e organize suas anotações pessoais para cada sessão.</p>
+            </div>
+    
+            <div class="card-2">
+              <img class="card-img" src="img/2Icon-descript.png" alt="item1">
+                <p class="titulo-descript">Consulta de Magias</p>
+                <p class="p-descript">Acesse rapidamente todas as magias do livro. Use os filtros para encontrar exatamente o que precisa, seja como jogador ou mestre.</p>
+            </div>
+    
+            <div class="card-1">
+              <img class="card-img" src="img/3Icon-Descipt.png" alt="item1">
+                <p class="titulo-descript">Itens do Livro</p>
+                <p class="p-descript">Tenha todos os itens do livro de D&D ao seu alcance. Com uma pesquisa rápida, você pode encontrar armas, armaduras e objetos para equipar seus personagens ou consultar durante o jogo.</p>
+            </div>
+    
+            <div class="card-1">
+              <img class="card-img" src="img/4Icon-Descirpt.png" alt="item1">
+                <p class="titulo-descript">Anotações Rápidas</p>
+                <p class="p-descript">Mantenha suas notas sempre à mão, seja para organizar as aventuras do mestre ou anotar detalhes importantes para o seu personagem durante a campanha.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="feedback-section">
+      <div class="feedback-images">
+        <img src="img/bg.jpg" alt="User Feedback" class="feedback-img">
+      </div>
+      <div class="feedback-content">
+        <h2 class="feedback-title">Nos Ajude a Evoluir!</h2>
+        <p class="feedback-text">
+          Sua opinião é essencial para aprimorarmos nossa plataforma. Deixe seu feedback e nos diga como podemos tornar sua experiência ainda melhor!
+        </p>
+        <a href="link do formulario" class="feedback-button">Deixe seu Feedback</a>
+      </div>
+    
+      <div class="feedback-images">
+        <img src="img/img.jpg" alt="Another Feedback" class="feedback-img">
+      </div>
+    </section>
+  </main>
+
+  <footer>
+      <p>&copy; 2024 Mateus & Mathiro. Todos os direitos reservados.</p>
+  </footer>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const loadEl = document.querySelector('#load');
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        // // The Firebase SDK is initialized and available here!
+        //
+        // firebase.auth().onAuthStateChanged(user => { });
+        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+        // firebase.firestore().doc('/foo/bar').get().then(() => { });
+        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
+        // firebase.messaging().requestPermission().then(() => { });
+        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+        // firebase.analytics(); // call to activate
+        // firebase.analytics().logEvent('tutorial_completed');
+        // firebase.performance(); // call to activate
+        //
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+        try {
+          let app = firebase.app();
+          let features = [
+            'auth', 
+            'database', 
+            'firestore',
+            'functions',
+            'messaging', 
+            'storage', 
+            'analytics', 
+            'remoteConfig',
+            'performance',
+          ].filter(feature => typeof app[feature] === 'function');
+          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
+        } catch (e) {
+          console.error(e);
+          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+        }
+      });
+    </script>
+  </body>
+</html>

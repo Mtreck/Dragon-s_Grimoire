@@ -1,4 +1,4 @@
-import { db, collection, addDoc, getDocs, deleteDoc, doc } from '/bd.js';
+import { db, collection, addDoc, getDocs, deleteDoc, doc } from '../../../bd.js';
 
 // Função para buscar itens do Firestore
 async function fetchItems() {
