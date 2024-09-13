@@ -10,3 +10,8 @@ document.getElementById('logout-btn').addEventListener('click', () => {
         console.error('Erro ao deslogar:', error);
     });
 });
+
+document.getElementById('change-character-btn').addEventListener('click', () => {
+    localStorage.removeItem('personagemId');
+    window.location.href = 'jogador.html';
+});

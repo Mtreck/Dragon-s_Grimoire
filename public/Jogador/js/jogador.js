@@ -87,6 +87,3 @@ async function criarPersonagem() {
 }
 
 document.getElementById('create-character-btn').addEventListener('click', criarPersonagem);
-
-// document.addEventListener('DOMContentLoaded', carregarPersonagens);
-//

@@ -1,4 +1,4 @@
-import { db, collection, getDocs, deleteDoc, addDoc, doc, query, where } from '../../bd.js';
+import { db, collection, getDocs, updateDoc, deleteDoc, addDoc, doc, query, where } from '../../bd.js';
 
 const searchInput = document.getElementById('search-spell');
 const magiasContainer = document.getElementById('spell-cards-container');
@@ -80,7 +80,7 @@ async function saveDataToCharacter(data) {
         }
         const docRef = await addDoc(subCollectionRef, data);
 
-        alert(`Magia salva no personagem`, docRef.id);
+        alert(`Magia salva no personagem.`);
         renderSpells();
     } catch (error) {
         console.error('Erro ao salvar dados na sub-coleção:', error);
@@ -105,14 +105,20 @@ export async function renderSpells() {
 
         magias.forEach((magia) => {
             const listItem = document.createElement('div');
+            const prepared = magia.prep ? 'checked' : '';
             listItem.classList.add('spell-list-card');
             listItem.innerHTML = `
                 <h4>${magia.nome}</h4>
                 <p><strong>Magia de ${magia.escola} do ${magia.nivel}º círculo</strong></p>
-                <div class="text-right mt-2">
+                <div class="text-right mt-2" style="font-size: 90%;">
+                    Preparada: 
+                    <label class="switch">
+                        <input type="checkbox" class="spell-prep" data-id="${magia.id}" ${prepared}>
+                        <span class="slider round"></span>
+                    </label>
                     <button type="button" class="rounded px-2 py- 1 view-spell-btn text-right">Ver Detalhes</button>
                     <button type="button" class="btn-danger px-2 py-1 rounded delete-spell-btn">Excluir</button>
-                <\div>
+                </div>
             `;
             spellsList.appendChild(listItem);
 
@@ -129,6 +135,24 @@ export async function renderSpells() {
         console.error('Erro ao buscar magias salvas: ', error);
     }
 }
+
+document.getElementById('save-prepared-spells').addEventListener('click', async () => {
+    const preparedSpells = document.querySelectorAll('.spell-prep');
+    try {
+        preparedSpells.forEach(async (checkbox) => {
+            const spellId = checkbox.getAttribute('data-id');
+            const isPrepared = checkbox.checked;
+
+            const spellDocRef = doc(db, 'jogador', jogadorId, 'personagem', personagemId, 'magias', spellId);
+            await updateDoc(spellDocRef, {
+                prep: isPrepared
+            });
+        });
+        alert('Magias preparadas salvas com sucesso.');
+    } catch (error) {
+        console.error('Erro ao salvar o estado das magias:', error);
+    }
+});
 
 function openSpellModal(magia) {
     const spellModal = document.getElementById('all-spell-modal');
@@ -165,7 +189,7 @@ async function deleteSpell(spellId) {
         const spellDocRef = doc(personagemDocRef, 'magias', spellId);
 
         await deleteDoc(spellDocRef);
-        alert('Magia excluída com sucesso');
+        alert('Magia excluída com sucesso.');
         renderSpells(); 
     } catch (error) {
         console.error('Erro ao excluir a magia:', error);

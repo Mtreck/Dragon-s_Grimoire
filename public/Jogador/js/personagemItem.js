@@ -161,7 +161,7 @@ document.getElementById('edit-item-form').addEventListener('submit', async (e) =
     try {
         const itemDocRef = doc(db, 'jogador', jogadorId, 'personagem', personagemId, 'item', itemId);
         await updateDoc(itemDocRef, updatedItem);
-        alert('Item atualizado com sucesso!');
+        alert('Item atualizado com sucesso.');
         loadPersonagemItems(); 
         closeModal('edit-item-modal'); 
     } catch (error) {

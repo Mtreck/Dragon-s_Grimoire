@@ -70,7 +70,7 @@ document.getElementById('save-character').onclick = async function (event) {
         try {
             const personagemDocRef = doc(db, 'jogador', jogadorId, 'personagem', personagemId);
             await setDoc(personagemDocRef, characterData);
-            alert('Personagem salvo com sucesso!');
+            alert('Personagem salvo com sucesso.');
         } catch (error) {
             console.error('Erro ao salvar personagem:', error);
         }

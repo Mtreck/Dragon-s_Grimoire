@@ -39,12 +39,12 @@ export function renderNotes(notes) {
         notesList.classList.remove('bordered-list');
     }
     notes.forEach((note) => {
-        const li = document.createElement('li');
-        li.classList.add('bordered-list', 'd-flex', 'justify-content-between', 'align-items-center');
+        const li = document.createElement('div');
+        li.classList.add('bordered-list');
         li.innerHTML = `
                 <span class="note-text text-box">${note.titulo}</span>
                 <div class=" text-right">
-                    <button class="btn-sm mb-1 px-2" onclick="openNoteModal('${note.id}')">Anotar</button>
+                    <button class="btn-sm mb-1 px-4" onclick="openNoteModal('${note.id}')">Anotar</button>
                     <button class="btn-danger btn-sm mb-1 px-3" onclick="deleteNote('${note.id}')">×</button>
                 </div>
             `;
@@ -61,7 +61,7 @@ async function addNote(noteTitle) {
             order: new Date()
         };
         const docRef = await addDoc(notesCollectionRef, newNote);
-        alert(`Nota adicionada com sucesso:`, docRef.id);
+        alert(`Nota adicionada com sucesso.`);
         loadNotes();
     } catch (error) {
         console.error('Erro ao adicionar nota: ', error);
@@ -79,7 +79,7 @@ async function deleteNote(noteId) {
         const noteDocRef = doc(db, 'jogador', jogadorId, 'personagem', personagemId, 'anotacoes', noteId);
         await deleteDoc(noteDocRef);
         
-        alert('Nota excluída com sucesso:', noteId);
+        alert('Nota excluída com sucesso.');
         loadNotes();
     } catch (error) {
         console.error('Erro ao excluir nota:', error);
@@ -150,7 +150,7 @@ async function addSubtopic() {
             order: new Date()
         };
         await addDoc(subtopicsCollectionRef, newSubtopic);
-        alert('Subtópico adicionado com sucesso!');
+        alert('Subtópico adicionado com sucesso.');
         loadSubtopics(currentNoteId); 
         subtopicInput.value = '';
     } catch (error) {
@@ -165,7 +165,7 @@ async function deleteSubtopic(subtopicId) {
         const subtopicDocRef = doc(personagemDocRef, 'anotacoes', currentNoteId, 'topicos', subtopicId);
 
         await deleteDoc(subtopicDocRef);
-        alert('Subtópico excluído com sucesso:', subtopicId);
+        alert('Subtópico excluído com sucesso.');
         loadSubtopics(currentNoteId);
     } catch (error) {
         console.error('Erro ao excluir subtópico:', error);

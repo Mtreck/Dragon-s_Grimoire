@@ -1,4 +1,3 @@
-/* Estilos para o botão de logout/voltar */
 .back-button {
     position: absolute;
     padding: 0% 2%;
@@ -16,7 +15,6 @@
     color: #64c8aa;
 }
 
-/* Estilos globais, títulos e outros elementos */
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -28,11 +26,10 @@ body {
     background-image: url('../img/jogadores.jpg');
     background-size: cover;
     background-position: center;
-    background-color: rgba(0, 0, 0, 0.6); /* Fallback para o background */
+    background-color: rgba(0, 0, 0, 0.6);
     color: #ffffff;
 }
 
-/* Título */
 h1 {
     color: #80e5c8;
     text-shadow: 2px 2px 3px #1a1a1a;
@@ -40,7 +37,6 @@ h1 {
     margin-bottom: 2rem;
 }
 
-/* Grade de personagens */
 #character-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -53,7 +49,6 @@ h1 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
 }
 
-/* Botão para criar novo personagem */
 button {
     background-color: #5ead97;
     color: #ffffff;
@@ -71,7 +66,6 @@ button:hover {
     background-color: #64c8aa;
 }
 
-/* Ajustes responsivos */
 @media (max-width: 600px) {
     h2 {
         font-size: 20px;
