@@ -3,24 +3,24 @@ import { db, collection, getDocs, updateDoc, deleteDoc, addDoc, doc, query, wher
 const searchInput = document.getElementById('search-spell');
 const magiasContainer = document.getElementById('spell-cards-container');
 const buscarMagiasBtn = document.getElementById('buscar-magias-btn');
-const jogadorId = localStorage.getItem('jogadorId'); 
-const personagemId = localStorage.getItem('personagemId'); 
+const jogadorId = localStorage.getItem('jogadorId');
+const personagemId = localStorage.getItem('personagemId');
 
-let magiasCarregadas = false; 
+let magiasCarregadas = false;
 
 async function displayMagias() {
-    if (magiasCarregadas){ 
-        //console.log('Magias já carregadas.');
+    if (magiasCarregadas) {
         openModal('spell-modal');
         return;
     }
     try {
-        //console.log('Carregando magias...')
-        const querySnapshot = await getDocs(collection(db, 'magias'));
+        const response = await fetch('./magias.json');
+        const data = await response.json();
+        const magias = data.magias;
+
         magiasContainer.innerHTML = '';
 
-        querySnapshot.forEach((docSnapshot) => {
-            const magia = docSnapshot.data();
+        magias.forEach((magia) => {
             const spellCard = document.createElement('div');
             spellCard.classList.add('spell-card');
 
@@ -53,11 +53,11 @@ async function displayMagias() {
             });
         });
 
-        aplicarFiltrosEMagia(); 
-        magiasCarregadas = true; 
+        aplicarFiltrosEMagia();
+        magiasCarregadas = true;
         openModal('spell-modal');
     } catch (error) {
-        console.error('Erro ao buscar magias: ', error);
+        console.error('Erro ao buscar magias do JSON: ', error);
     }
 }
 
@@ -76,7 +76,7 @@ async function saveDataToCharacter(data) {
 
         if (!querySnapshot.empty) {
             alert('A magia já existe no personagem.');
-            return; 
+            return;
         }
         const docRef = await addDoc(subCollectionRef, data);
 
@@ -92,12 +92,12 @@ export async function renderSpells() {
     try {
         const subCollectionRef = collection(db, 'jogador', jogadorId, 'personagem', personagemId, 'magias');
         const querySnapshot = await getDocs(subCollectionRef);
-        spellsList.innerHTML = ''; 
+        spellsList.innerHTML = '';
 
         const magias = [];
         querySnapshot.forEach((docSnapshot) => {
             const magia = docSnapshot.data();
-            magia.id = docSnapshot.id; 
+            magia.id = docSnapshot.id;
             magias.push(magia);
         });
 
@@ -107,9 +107,14 @@ export async function renderSpells() {
             const listItem = document.createElement('div');
             const prepared = magia.prep ? 'checked' : '';
             listItem.classList.add('spell-list-card');
+
+            const descricaoMagia = magia.nivel != 0
+                ? `Magia de ${magia.escola} do ${magia.nivel}º círculo`
+                : `Truque de ${magia.escola}`;
+
             listItem.innerHTML = `
                 <h4>${magia.nome}</h4>
-                <p><strong>Magia de ${magia.escola} do ${magia.nivel}º círculo</strong></p>
+                <p><strong>${descricaoMagia}</strong></p></strong></p>
                 <div class="text-right mt-2" style="font-size: 90%;">
                     Preparada: 
                     <label class="switch">
@@ -190,7 +195,7 @@ async function deleteSpell(spellId) {
 
         await deleteDoc(spellDocRef);
         alert('Magia excluída com sucesso.');
-        renderSpells(); 
+        renderSpells();
     } catch (error) {
         console.error('Erro ao excluir a magia:', error);
     }
