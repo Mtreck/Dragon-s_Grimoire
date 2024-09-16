@@ -128,7 +128,7 @@ function displayPersonagemItem(item) {
 
     const editItemButton = listItem.querySelector('.edit-item-btn');
     editItemButton.addEventListener('click', () => {
-        currentItemId = item.id; 
+        currentItemId = item.id;
         openEditModal(item);
     });
     const deleteItemButton = listItem.querySelector('.delete-item-btn');

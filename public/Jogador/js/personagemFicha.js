@@ -12,7 +12,6 @@ export async function loadCharacterData() {
         
         if (personagemSnapshot.exists()) {
             characterData = personagemSnapshot.data();
-            //console.log('Dados do personagem carregados:', characterData);
             displayCharacter();
         } else {
             console.log('Nenhum personagem encontrado.');

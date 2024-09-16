@@ -1,7 +1,7 @@
 import { db, collection, doc, getDocs, getDoc, addDoc, deleteDoc } from '../../bd.js';
 
-const jogadorId = localStorage.getItem('jogadorId'); 
-const personagemId = localStorage.getItem('personagemId'); 
+const jogadorId = localStorage.getItem('jogadorId');
+const personagemId = localStorage.getItem('personagemId');
 
 const notesList = document.getElementById('notes-list');
 const notesForm = document.getElementById('notes-form');
@@ -71,14 +71,14 @@ async function addNote(noteTitle) {
 async function deleteNote(noteId) {
     try {
         const subtopicsCollectionRef = collection(db, 'jogador', jogadorId, 'personagem', personagemId, 'anotacoes', noteId, 'topicos');
-        
+
         const querySnapshot = await getDocs(subtopicsCollectionRef);
         const deleteSubtopicsPromises = querySnapshot.docs.map((doc) => deleteDoc(doc.ref));
         await Promise.all(deleteSubtopicsPromises);
-        
+
         const noteDocRef = doc(db, 'jogador', jogadorId, 'personagem', personagemId, 'anotacoes', noteId);
         await deleteDoc(noteDocRef);
-        
+
         alert('Nota excluída com sucesso.');
         loadNotes();
     } catch (error) {
@@ -115,7 +115,7 @@ async function loadSubtopics(noteId) {
     const subtopics = [];
     querySnapshot.forEach((docSnapshot) => {
         const subtopic = docSnapshot.data();
-        subtopic.id = docSnapshot.id; 
+        subtopic.id = docSnapshot.id;
         subtopics.push(subtopic);
     });
     subtopics.sort((a, b) => a.order.seconds - b.order.seconds);
@@ -151,7 +151,7 @@ async function addSubtopic() {
         };
         await addDoc(subtopicsCollectionRef, newSubtopic);
         alert('Subtópico adicionado com sucesso.');
-        loadSubtopics(currentNoteId); 
+        loadSubtopics(currentNoteId);
         subtopicInput.value = '';
     } catch (error) {
         console.error('Erro ao adicionar subtópico: ', error);
